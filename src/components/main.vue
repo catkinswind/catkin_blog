@@ -25,7 +25,6 @@
 				<uploadfile></uploadfile>
 			</div>
 			<div class="right">
-				<forget></forget>
 			</div>
 		</div>
 		<div class="footer"></div>
@@ -34,7 +33,6 @@
 <script>
 import logo from './logo.vue'
 import uploadfile from './uploadfile.vue'
-import forget from './forget.vue'
 export default{
 	name: 'patchCheck',
 	data(){
@@ -59,7 +57,7 @@ export default{
 		}
 	},
 	components:{
-		logo,uploadfile,forget
+		logo,uploadfile
 	},
 
 

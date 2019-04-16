@@ -50,12 +50,12 @@
 	</div>
 </template>
 <script>
-import {Toast} from 'mint-ui';
-import logo from './logo.vue'
-import hight from '../js/my.js'
-export default{
-	data(){
-		return{
+	import {Toast} from 'mint-ui';
+	import logo from './logo.vue'
+	import hight from '../js/my.js'
+	export default{
+		data(){
+			return{
 			//同户名格式错误提示信息,验证用户名格式是否符合规范
 			userName:'',nameflag:false,namemsg:'',
 			userEmail:'',emailflag:false,emailmsg:'',
@@ -113,16 +113,14 @@ export default{
 	    	this.$refs.email.style.display = 'none';
 	    },
 	    pwd(){
-	    	this.pwdlflag=false;
 	    	const el=this.$refs.pwd
-	    	el.style.border =' 1px solid #CCC';
-	    	el.style.boxShadow ='0 0 5px transparent';
 	    	if (this.userPwd!=='') {
 				if (!(/^[-_A-z0-9$@!%*#?&]{4,16}$/.test(this.userPwd))){//密码格式不对
-					this.pwdlflag=!this.pwdlflag;
 					hight(el,'red');
 				}else {
 					this.repwd();
+					el.style.border =' 1px solid #CCC';
+					el.style.boxShadow ='0 0 5px transparent';
 				}
 			}
 			
@@ -137,12 +135,9 @@ export default{
 			}
 		},
 		register(){
-			// ----------------------------------------
 			const el=this.$refs.btn;
 			el.style.border =' 1px solid #CCC';
 			el.style.boxShadow ='0 0 5px transparent';
-			// hight(el,'color','#CCC')
-			// ----------------------------------------
 			this.errclassflag=this.succclassflag=false;
 			// 判断信息是否为空
 			if (this.userName==='') {
@@ -154,7 +149,6 @@ export default{
 				this.emailmsg='请输入邮箱'
 			}
 			if (this.userPwd==='') {
-				this.$refs.pwd.style.border =' 1px solid #CCC';
 				hight(this.$refs.pwd,'red');
 			}
 			if (this.repuserPwd==='') {
@@ -206,31 +200,20 @@ export default{
 			}
 		}
 	},
-	directives:{
-		'focus':{
-			inserted:function(el){
-				el.focus();
-			}
-		},
-	},
 	components:{
 		logo
 	},
 	updated(){
 		let el=this.$refs.email;
-        // console.log(this.$refs.email)
-        document.addEventListener('click', function(e){
+        document.addEventListener('click', function(){
         	el.style.display = 'none';
-        	// if(!this.$refs.email.contains(e.target)){
-        	// 	this.$refs.email.style.display = 'none';
-        	// }
         })
     }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 .content .signup{
 	font-size: 18px;margin-bottom: 10px;
 }
@@ -242,7 +225,8 @@ export default{
 	text-align: center;box-sizing: border-box;background: white
 }
 .succclass{
-	background: linear-gradient(.31deg,#3cac8a .7%,#5cceac 99.3%);opacity: 1 !important;text-align: center;
+	background: linear-gradient(.31deg,#3cac8a .7%,#5cceac 99.3%);opacity: 1 !important;
+	text-align: center;
 }
 .errclass{
 	background: red;
@@ -253,26 +237,28 @@ export default{
 }
 .emailbox{
 	position: relative;width: 100%;
+	.emailcontainer{
+		position: absolute;left: 0;top: 40px;width: 100%;background: #FFF;border-radius: 5px;
+		border: 1px solid #CCC;box-sizing: border-box;display:none;overflow: hidden;
+		p{
+			width: 100%;height: 35px;line-height: 35px;font-size: 13px;font-weight: 500;
+			padding-left: 20px;box-sizing: border-box;border-radius: 5px
+		}
+		p:nth-child(1){
+			margin-top: 5px;
+		}
+	}
 }
-.emailbox .emailcontainer{
-	position: absolute;left: 0;top: 40px;width: 100%;background: #FFF;border-radius: 5px;
-	border: 1px solid #CCC;box-sizing: border-box;display:none;overflow: hidden;
-}
-.emailcontainer p{
-	width: 100%;height: 35px;line-height: 35px;font-size: 13px;font-weight: 500;padding-left: 20px;
-	box-sizing: border-box;border-radius: 5px
-}
-.emailcontainer p:nth-child(1){
-	margin-top: 5px;
-}
+
 </style>
-<style>
+<style lang="scss">
 .toastsuc{
 	background: linear-gradient(.31deg,#3cac8a .7%,#5cceac 99.3%) !important;
 	text-shadow: 0 2px 4px rgba(0,0,0,.25);
+	/* Mint-Ui组件的提示文字 */
+	span{
+		text-align: left;font-size: 12px;color: white;
+	}
 }
-/* Mint-Ui组件的提示文字 */
-.toastsuc span{
-	text-align: left;font-size: 12px;color: white;
-}
+
 </style>

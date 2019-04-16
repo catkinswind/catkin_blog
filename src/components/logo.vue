@@ -19,16 +19,16 @@ export default{
 	props:['left','marginLeft','width'],
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .header{
 	width: 100%;
 	position: relative;
 	z-index: 3;
-}
-.header h1{
-	position: relative;left: 0;top: 0;
-}
-.header h1 img{
-	width: 200px;
+	h1{
+		position: relative;left: 0;top: 0;
+		img{
+			width: 200px;
+		}
+	}
 }
 </style>

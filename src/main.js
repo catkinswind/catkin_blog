@@ -20,6 +20,11 @@ Vue.config.productionTip = false
 
 // import hight from './js/my.js'
 import app from './App.vue'
+Vue.directive('focus',{
+	inserted:function(el){
+		el.focus();
+	}
+})
 // new Vue({
 //   el:'#app',
 //   components:{
@@ -28,6 +33,6 @@ import app from './App.vue'
 //   router:routerObj,
 // })
 new Vue({
-  router:routerObj,
-  render: h => h(app)
+	router:routerObj,
+	render: h => h(app)
 }).$mount("#app")
