@@ -1,9 +1,9 @@
 export default function hight(el, warnColor, prveColor) {
 	// console.log(getComputedStyle(el, false)['border'])
 	
-	if (getComputedStyle(el, false)['border'] !== `1px solid rgb(204, 204, 204)`) {
-		return;
-	}
+	// if (getComputedStyle(el, false)['border'] !== `1px solid rgb(204, 204, 204)`) {
+	// 	return;
+	// }
 	el.timer = setTimeout(function() {
 		el.style.transition = 'all 1s ease';
 		el.style.border = `1px solid ${warnColor}`;
@@ -15,7 +15,7 @@ export default function hight(el, warnColor, prveColor) {
 				el.style.boxShadow = `0 12px 10px -5px transparent`;
 				el.style.border = `1px solid ${prveColor}`
 			}
-		}, 300)
+		}, 1000)
 	}, 200)
 }
 function hexToRgb(hex){

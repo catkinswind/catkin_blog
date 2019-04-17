@@ -8,7 +8,7 @@
 						<img src="../assets/timg.jpg" alt="">
 					</div>
 				</div>
-				<div class="login">Login</div>
+				<div class="title">Login</div>
 				<form autocomplete="off">
 					<label for="login_field">
 						Username
@@ -131,8 +131,8 @@
 			width: 220px
 		}
 	}
-	.login{
-		font-size: 18px;margin-bottom: 10px;
+	.title{
+		font-size: 17px;margin-bottom: 10px;
 	}
 	label{
 		display: inline-block;width: 50%;height: 35px;line-height: 35px;

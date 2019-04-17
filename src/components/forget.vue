@@ -3,13 +3,14 @@
 		<logo left='50%' marginLeft="-100px"></logo>
 		<div class="box">
 			<div class="content">
+				<div class="title">Reset password</div>
 				<form autocomplete="off">
 					<label for="login_field">
 						Username
 					</label>
 					<input id="login_field" type="text" v-model.trim="userName" placeholder="" v-focus spellcheck="false">
 					<label for="register_pwd">
-						Password
+						New password
 					</label>
 					<input id="register_pwd" type="password" v-model.trim="userPwd" placeholder="" @change="pwd" ref="pwd">
 					<div class="forgetline">

@@ -4,7 +4,7 @@
 		<div class="box">
 			<div class="content">
 				
-				<div class="signup">Sign Ip</div>
+				<div class="title">Sign up</div>
 				<form autocomplete="off">
 					<label for="register_field">
 						Username
@@ -214,9 +214,6 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-.content .signup{
-	font-size: 18px;margin-bottom: 10px;
-}
 .content .btn{
 	background: #FFF;padding-left: 0;text-shadow: 0 2px 4px rgba(0,0,0,.25);font-weight: 600;
 }
