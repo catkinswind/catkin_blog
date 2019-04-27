@@ -6,14 +6,14 @@ export default function hight(el, warnColor, prveColor) {
 	// }
 	el.timer = setTimeout(function() {
 		el.style.transition = 'all 1s ease';
-		el.style.border = `1px solid ${warnColor}`;
+		el.style.borderColor = `${warnColor}`;
 		// 1。阴影距离左边框距离  2.阴影距离上边框距离 3.模糊度  4.阴影扩展
 		el.style.boxShadow = `0 12px 10px -5px  ${warnColor}`;
 		setTimeout(function() {
 			if (prveColor) {
 				el.style.transition = 'all 1s ease';
 				el.style.boxShadow = `0 12px 10px -5px transparent`;
-				el.style.border = `1px solid ${prveColor}`
+				el.style.borderColor = `${prveColor}`
 			}
 		}, 1000)
 	}, 200)

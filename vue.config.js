@@ -1,3 +1,4 @@
+const webpack=require('webpack');
 module.exports = {
     devServer: {     //api跨域操作
         proxy: {
@@ -14,9 +15,12 @@ module.exports = {
     		alias: {
     			'vue$': 'vue/dist/vue.esm.js' 
     		}
-    	}
-    }
-     
-  
-
+    	},
+        plugins: [
+            new webpack.ProvidePlugin({
+                $: "jquery",
+                jQuery: "jquery"
+            })
+        ]
+   }
 }

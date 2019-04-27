@@ -1,9 +1,9 @@
 import VueRouter from 'vue-router'
 
-import Login from './components/login.vue'
-import Main from './components/main.vue'
-import Register from './components/register.vue'
-import Forget from './components/forget.vue'
+import Login from './components/Login.vue'
+import Main from './components/Main.vue'
+import Register from './components/Register.vue'
+import Forget from './components/Forget.vue'
 
 let routerObj=new VueRouter({
 	routes:[
@@ -11,7 +11,7 @@ let routerObj=new VueRouter({
 	{path:'/login',component:Login,name:'login'},
 	{path:'/register',component:Register,name:'register'},
 	{path:'/main',component:Main,name:'main'},
-	{path:'/forget/',component:Forget,name:'forget'},
+	{path:'/forget/:name',component:Forget,name:'forget'},
 	]
 })
 

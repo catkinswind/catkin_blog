@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<logo left='50%' marginLeft="-100px"></logo>
+		<logo></logo>
 		<div class="box">
 			<div class="content">
 				<div class="headportrait">
@@ -40,7 +40,7 @@
 </template>
 <script>
 	import {Toast} from 'mint-ui';
-	import logo from './logo.vue'
+	import logo from './Logo.vue'
 	export default{
 		data(){
 			return{
@@ -98,7 +98,12 @@
 				this.$router.push({name:'register'})
 			},
 			forget(){
-				this.$router.push({name:'forget'})
+				this.$router.push({
+					name:'forget',
+					params:{
+						name:this.userName||' '
+					}
+				})
 			}
 		},
 		components:{
@@ -106,71 +111,6 @@
 		}
 	};
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-.box{
-	width: 400px;position: absolute;left: 50%;margin-left: -200px;top: 18%;
-	display: flex;flex-direction: column;justify-content: center;
-	font-weight: 600;font-size: 13px;
-	.about{
-		width: 100%;line-height: 40px;border: 2px solid #CCC;border-radius: 5px;margin-top: 20px;
-		box-sizing: border-box;background: white;text-align: center;
-	}
-}
-.box .content{
-	width: 100%;text-align: left;padding:15px;padding-bottom: 20px;
-	box-sizing: border-box;border: 2px solid #ccc;border-radius: 5px;background: white;
-	.headportrait{
-		width: 150px;height: 150px;
-		margin: 10px auto 30px;border-radius: 50%;overflow: hidden;
-	}
-	.headportrait .container{
-		width: 100%;height: 100%;background: transparent;
-		img{
-			width: 220px
-		}
-	}
-	.title{
-		font-size: 17px;margin-bottom: 10px;
-	}
-	label{
-		display: inline-block;width: 50%;height: 35px;line-height: 35px;
-	} 
-	input{
-		width: 100%;height: 40px; border: 1px solid #CCC;
-		border-radius: 5px;padding-left: 20px;box-sizing: border-box;
-	}
-	input:focus{
-		outline: 0;border-color: #1F8ACC;
-	}
-}
-.forgetline{
-	display: flex;justify-content: space-between;line-height: 35px;
-	label{
-		width: 50%
-	}
-}
-.blank{
-	background: transparent;width: 100%;height: 20px;
-}
-.verify{
-	width: 100%;border-radius: 5px;margin: 5px auto;
-	height: 25px;line-height: 25px;padding-left: 10px;box-sizing: border-box;
-	background: red;color: white;font-size: 12px;font-weight: 500;
-}
-.spancontainer{
-	text-align: center;
-}
-.entry{
-	height: 30px;line-height: 30px;
-	text-decoration: underline;text-shadow: 0 2px 4px rgba(0,0,0,.25);font-weight: 500
-}
-.noline{
-	text-decoration: none
-}
-</style>
-
 <style lang="scss" scoped>
 .content .btn{
 	background: #FFF;padding-left: 0;margin-bottom:20px ;
@@ -184,5 +124,4 @@
 		text-align: left;font-size: 12px;color: white;
 	}
 }
-
 </style>

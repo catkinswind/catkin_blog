@@ -3,21 +3,19 @@
 		<div class="header">
 			<div class="bar">
 				<ul>
-				<li>1</li>
-				<li>2</li>
-				<li>3</li>
-				<li>4</li>
-				<li>5</li>
-			</ul>
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+					<li>5</li>
+				</ul>
 			</div>
 			<div class="title">
-			<!-- <div> -->
-				<logo left="0" marginLeft="0" width="100px"></logo>
+				<logo height="45px"></logo>
 				<div class="loginOrResgiter">
 					<input type="button" value="Login" @click='toLogin'>
 					<input type="button" value="register" @click='toRegister'>
 				</div>
-			<!-- </div> -->
 			</div>
 		</div>
 		<div class="content">
@@ -31,8 +29,8 @@
 	</div>
 </template>
 <script>
-import logo from './logo.vue'
-import uploadfile from './uploadfile.vue'
+import logo from './Logo.vue'
+import uploadfile from './UpLoadFile.vue'
 export default{
 	name: 'patchCheck',
 	data(){
@@ -59,8 +57,6 @@ export default{
 	components:{
 		logo,uploadfile
 	},
-
-
 };
 </script>
 <style lang="scss" scoped>
@@ -72,29 +68,28 @@ export default{
     .bar ul{
     	width: 100%;display: flex;
     	li{
-    		flex: 1;list-style: none;background: red;height: 40px;
+    		flex: 1;background: red;height: 40px;
     		line-height: 40px;text-align: center;
     	}
     }
     .title{
-    	display: flex;justify-content: space-between
+    	display: flex;justify-content: space-between;align-items: center;
     }
 }
 .title .loginOrResgiter{
 	display: flex;align-items: center;justify-content: flex-end;
 	input{
 		width: 58px;height: 34px;border-radius: 5px;margin-right: 11px;
-		transition: all 0.4s ease;
+		transition: all 0.4s ease;box-sizing: border-box;
 	}
 	input:focus{
 		outline: none;
-		box-shadow: 0 0 10px red
 	}
 	input:nth-child(1){
-		border: 2px solid red;background: transparent;box-sizing: border-box;
+		border: 2px solid red;background: transparent;
 	}
 	input:nth-child(2){
-		border: 2px solid red;background: white;box-sizing: border-box
+		border: 2px solid red;background: white;
 	}
 }
 </style>

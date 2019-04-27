@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<logo left='50%' marginLeft="-100px"></logo>
+		<logo></logo>
 		<div class="box">
 			<div class="content">
 				<div class="title">Reset password</div>
@@ -34,7 +34,7 @@
 </template>
 <script>
 	import {Toast} from 'mint-ui';
-	import logo from './logo.vue'
+	import logo from './Logo.vue'
 	import hight from '../js/my.js'
 	export default{
 		data(){
@@ -118,17 +118,16 @@
 	components:{
 		logo
 	},
+	created(){
+		this.userName=this.$route.params.name;
+	}
 	
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .content .btn{
 	background: #FFF;padding-left: 0;text-shadow: 0 2px 4px rgba(0,0,0,.25);font-weight: 600;
 	margin-bottom: 20px;
 }
-
-
 </style>
 

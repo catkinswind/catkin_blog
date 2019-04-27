@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<logo left='50%' marginLeft="-100px"></logo>
+		<logo></logo>
 		<div class="box">
 			<div class="content">
 				
@@ -51,7 +51,7 @@
 </template>
 <script>
 	import {Toast} from 'mint-ui';
-	import logo from './logo.vue'
+	import logo from './Logo.vue'
 	import hight from '../js/my.js'
 	export default{
 		data(){
@@ -248,14 +248,4 @@
 }
 
 </style>
-<style lang="scss">
-.toastsuc{
-	background: linear-gradient(.31deg,#3cac8a .7%,#5cceac 99.3%) !important;
-	text-shadow: 0 2px 4px rgba(0,0,0,.25);
-	/* Mint-Ui组件的提示文字 */
-	span{
-		text-align: left;font-size: 12px;color: white;
-	}
-}
 
-</style>
