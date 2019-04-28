@@ -1,17 +1,20 @@
 <template>
 	<div>
+		<lightbar></lightbar>
 		<div class="header">
 			<div class="bar">
 				<ul>
-					<li>1</li>
-					<li>2</li>
-					<li>3</li>
-					<li>4</li>
-					<li>5</li>
+					<li><a href="#" title="">products</a></li>
+					<li><a href="#" title="">projects</a></li>
+					<li><a href="#" title="">home</a></li>
+					<li><a href="#" title="">uploadfile</a></li>
+					<li><a href="#" title="">induction</a></li>
 				</ul>
 			</div>
 			<div class="title">
-				<logo height="45px"></logo>
+				<div class="logobox">
+					<logo height="45px"></logo>
+				</div>
 				<div class="loginOrResgiter">
 					<input type="button" value="Login" @click='toLogin'>
 					<input type="button" value="register" @click='toRegister'>
@@ -29,8 +32,9 @@
 	</div>
 </template>
 <script>
-import logo from './Logo.vue'
+import logo from '../uidesigns/Logo.vue'
 import uploadfile from './UpLoadFile.vue'
+import lightbar from '../uidesigns/LightBar.vue'
 export default{
 	name: 'patchCheck',
 	data(){
@@ -55,32 +59,36 @@ export default{
 		}
 	},
 	components:{
-		logo,uploadfile
+		logo,uploadfile,lightbar
 	},
 };
 </script>
 <style lang="scss" scoped>
 .header{
-	width: 100%;background: yellow;
 	.bar{
-		width: 100%;background: #CCC
+		ul{
+			width: 100%;display: flex;justify-content: space-between;align-items: center;
+			// padding: 0 5px;
+			li{
+				flex: 1;text-align: center;color: black;
+			}
+			a{
+				text-decoration: none;font-size: 16px;line-height: 40px
+			}
+		}
 	}
-    .bar ul{
-    	width: 100%;display: flex;
-    	li{
-    		flex: 1;background: red;height: 40px;
-    		line-height: 40px;text-align: center;
-    	}
-    }
     .title{
     	display: flex;justify-content: space-between;align-items: center;
+    	.logobox{
+    		flex:2;
+    	}
     }
 }
 .title .loginOrResgiter{
-	display: flex;align-items: center;justify-content: flex-end;
+	flex:8;display: flex;justify-content: flex-end;
 	input{
 		width: 58px;height: 34px;border-radius: 5px;margin-right: 11px;
-		transition: all 0.4s ease;box-sizing: border-box;
+		transition: all 0.4s ease;box-sizing: border-box;font-size: 15px
 	}
 	input:focus{
 		outline: none;
@@ -89,7 +97,7 @@ export default{
 		border: 2px solid red;background: transparent;
 	}
 	input:nth-child(2){
-		border: 2px solid red;background: white;
+		border: 2px solid coral;background: white;
 	}
 }
 </style>

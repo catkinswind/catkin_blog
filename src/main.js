@@ -25,6 +25,16 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 // 导入自己的全局样式
 import './assets/css/loginAndRegister.scss';
 import './assets/css/clearMarginAndPadding.css'
+import 'lib-flexible/flexible.js'
+
+// window.onresize=setHhtmlFontSize;
+// function setHhtmlFontSize(){
+// 	const htmlWidth=document.documentElement.clientWidth||document.body.clientWidth;
+// 	const htmlDom=document.getElementsByTagName('html')[0];
+// 	htmlDom.style.fontSize = htmlWidth/10+'px';
+// };
+// setHhtmlFontSize();
+
 
 Vue.config.productionTip = false
 

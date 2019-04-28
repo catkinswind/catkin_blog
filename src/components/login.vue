@@ -40,7 +40,7 @@
 </template>
 <script>
 	import {Toast} from 'mint-ui';
-	import logo from './Logo.vue'
+	import logo from '../uidesigns/Logo.vue'
 	export default{
 		data(){
 			return{

@@ -34,8 +34,8 @@
 </template>
 <script>
 	import {Toast} from 'mint-ui';
-	import logo from './Logo.vue'
-	import hight from '../js/my.js'
+	import logo from '../uidesigns/Logo.vue'
+	import hight from '../assets/js/my.js'
 	export default{
 		data(){
 			return{
@@ -73,7 +73,6 @@
 			}
 		},
 		confirm(){
-			this.errflag=false;
 			if (this.userPwd==='') {
 				hight(this.$refs.pwd,'red');
 			}
