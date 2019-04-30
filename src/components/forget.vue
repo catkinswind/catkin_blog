@@ -33,36 +33,36 @@
 	</div>
 </template>
 <script>
-	import {Toast} from 'mint-ui';
-	import logo from '../uidesigns/Logo.vue'
-	import hight from '../assets/js/my.js'
-	export default{
-		data(){
-			return{
-				userName:'',nameflag:false,namemsg:'',
-				userPwd:'',pwdlflag:false,
-				repuserPwd:'',
-				errmsg:'',errflag:false,
-				registerflag:'',
+import {Toast} from 'mint-ui';
+import logo from '../decorate/Logo.vue'
+import hight from '../assets/js/my.js'
+export default{
+	data(){
+		return{
+			userName:'',nameflag:false,namemsg:'',
+			userPwd:'',pwdlflag:false,
+			repuserPwd:'',
+			errmsg:'',errflag:false,
+			registerflag:'',
 
-			}
+		}
+	},
+	methods:{
+		tologin(){
+			this.$router.push({name:'login'})
 		},
-		methods:{
-			tologin(){
-				this.$router.push({name:'login'})
-			},
-			pwd(){
-				const el=this.$refs.pwd
-				if (this.userPwd!=='') {
-				if (!(/^[-_A-z0-9$@!%*#?&]{4,16}$/.test(this.userPwd))){//密码格式不对
-					hight(el,'red');
-				}else {
-					this.repwd();
-					el.style.border =' 1px solid #CCC';
-					el.style.boxShadow ='0 0 5px transparent';
+		pwd(){
+			const el=this.$refs.pwd
+			if (this.userPwd!=='') {
+				    if (!(/^[-_A-z0-9$@!%*#?&]{4,16}$/.test(this.userPwd))){//密码格式不对
+				    	hight(el,'red');
+				    }else {
+				    	this.repwd();
+				    	el.style.border =' 1px solid #CCC';
+				    	el.style.boxShadow ='0 0 5px transparent';
+				    }
 				}
-			}
-		},
+			},
 		repwd(){
 			this.errflag=false
 			if (this.repuserPwd!==''&&this.userPwd!=='') {

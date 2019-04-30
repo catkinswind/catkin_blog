@@ -40,7 +40,8 @@
 </template>
 <script>
 	import {Toast} from 'mint-ui';
-	import logo from '../uidesigns/Logo.vue'
+	import logo from '../decorate/Logo.vue'
+	import {mapMutations} from 'vuex'
 	export default{
 		data(){
 			return{
@@ -51,6 +52,7 @@
 			}
 		},
 		methods:{
+			...mapMutations(['loginUserName']),
 			submit(){
 				this.succmsg=this.errmsg='';
 				if (this.userName==='') {
@@ -77,7 +79,9 @@
 				        // console.log(data)
 				        if (data.isname) {//账号存在
 				            if (data.ispwd) {//密码正确
-				            	this.$router.push({name:'main'})
+				            	this.$router.push({name:'home'});
+				            	// 相当于调用this.$store.commit('loginUserName',this.userName);
+				            	this.loginUserName(this.userName);
 					    	    Toast({
 					    		    message:"登录成功",
 					    		    duration:1000,

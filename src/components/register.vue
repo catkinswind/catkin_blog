@@ -51,7 +51,7 @@
 </template>
 <script>
 	import {Toast} from 'mint-ui';
-	import logo from '../uidesigns/Logo.vue'
+	import logo from '../decorate/Logo.vue'
 	import hight from '../assets/js/my.js'
 	export default{
 		data(){

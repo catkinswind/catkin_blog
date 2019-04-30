@@ -15,10 +15,8 @@
 				<div class="logobox">
 					<logo height="45px"></logo>
 				</div>
-				<div class="loginOrResgiter">
-					<input type="button" value="Login" @click='toLogin'>
-					<input type="button" value="register" @click='toRegister'>
-				</div>
+				<signinbar v-if="signin"></signinbar>
+				<signupbar v-if="!signin" height="45px"></signupbar>
 			</div>
 		</div>
 		<div class="content">
@@ -29,38 +27,45 @@
 			</div>
 		</div>
 		<div class="footer"></div>
+		<!-- <lightbar></lightbar> -->
 	</div>
 </template>
 <script>
-import logo from '../uidesigns/Logo.vue'
+import logo from '../decorate/Logo.vue'
 import uploadfile from './UpLoadFile.vue'
-import lightbar from '../uidesigns/LightBar.vue'
+import lightbar from '../decorate/LightBar.vue'
+import signinbar from '../subcomponents/SignInBar.vue';
+import signupbar from '../subcomponents/SignUpBar.vue'
+import { mapGetters } from 'vuex'
 export default{
-	name: 'patchCheck',
+	// name: 'patchCheck',
 	data(){
 		return{
-			position:{
-				left:0,
-				marginLeft:0,
-				infoshow: false,
-                fileList: [],
-			}
+			// signin:true,
         }
 	},
 	created(){
-
+		console.log(`Home组件接收到的用户名${this.$store.getters.loginName}`);
 	},
 	methods:{
-		toLogin(){
-			this.$router.push({name:'login'})
-		},
-		toRegister(){
-			this.$router.push({name:'register'})
-		}
 	},
 	components:{
-		logo,uploadfile,lightbar
+		logo,
+		uploadfile,
+		lightbar,
+		signinbar,
+		signupbar,
 	},
+	computed:{
+		// loginName(){
+		// 	return this.$store.getters.loginName;
+		// }
+		...mapGetters(['loginName']),//相当于调用了上述代码
+		signin(){
+			return this.loginName===''?true:false;
+		}
+	},
+	
 };
 </script>
 <style lang="scss" scoped>
@@ -83,21 +88,5 @@ export default{
     		flex:2;
     	}
     }
-}
-.title .loginOrResgiter{
-	flex:8;display: flex;justify-content: flex-end;
-	input{
-		width: 58px;height: 34px;border-radius: 5px;margin-right: 11px;
-		transition: all 0.4s ease;box-sizing: border-box;font-size: 15px
-	}
-	input:focus{
-		outline: none;
-	}
-	input:nth-child(1){
-		border: 2px solid red;background: transparent;
-	}
-	input:nth-child(2){
-		border: 2px solid coral;background: white;
-	}
 }
 </style>

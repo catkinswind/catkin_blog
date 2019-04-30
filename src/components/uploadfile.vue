@@ -1,72 +1,76 @@
 <template>
 	<div >
 		<div class="dropbox" >
-			<div name="single" class="load" ref="dropbox">
-				点击或将文件拖动到此处上传文件
+			<div name="single" class="load" ref="dropbox" title="点击或将文件拖动到此处上传文件">
+				<i class="layui-icon layui-icon-upload"></i>
 				<input  class="loadinputfile" type="file" @change="buttonCheck" multiple="multiple" />
 			</div> 
 			<div class="open">
-				查看资源
+				<i class="layui-icon layui-icon-tabs"></i>
 			</div>
 			<transition
 			@before-enter="beforeEnter"
 			@enter="enter"
 			@after-enter="afterEnter">
-			<span class="exist" v-show="existflag">{{errmsg}}</span>
-		</transition>
-	</div> 
-	<div class="checkallbox" v-if='checkflag'>
-		<div class="checkall">
-		    <div @click.stop="checkAll($event)" ref='all'>
-				<span v-show='allok' class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-			</div>
-		    <span>全选</span>
-		</div>
-	 	<button class="upload" type="button" @click="upLoad">上传</button>
-	</div> 
-	<!-- 展示文件信息 -->
-	<div class='hightlight'>
-		<p class="filetitle" v-if="uploadFiles.length===0?false:true">		
-			<span>文件数量：{{uploadFiles.length===0?'':uploadFiles.length}}</span>
-			<span>文件总大小：{{uploadFiles.allsize}}</span>
-		</p>
-		<div ref="filecatalogue">
-			<div  v-for="item in uploadFiles" :key='item.name' class="catalogue" :sign="item.name">
-				<div class="flexbox">
-					<div class="ischeck">
-						<div @click.stop="check($event,item)" ref='bgc'>
-							<span v-if="item.ok" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-						</div>
-					</div>
-					<div class="fileone" >
-						<h4>
-							<span>{{item.name|nameFormat}}</span>
-						</h4>
-						<div class="detailed">
-							<span>{{item.lastModifiedDate|dataFormat}}</span>
-							<span>{{item.onesize}}</span>
-							<span>{{item.filetype|typeFormat}}</span>
-							<span>{{item.ok}}</span>
-						</div>
-					</div>
+			    <span class="exist" v-show="existflag">{{errmsg}}</span>
+			</transition>
+		</div> 
+		<div class="checkallbox" v-if='checkflag'>
+			<div class="checkall">
+				<div @click.stop="checkAll($event)" ref='all'>
+					<i v-show='allok' class="layui-icon layui-icon-ok"></i> 
 				</div>
+				<span>全选</span>
 			</div>
-		</div>
+			<button class="upload" type="button" @click="upLoad">上传</button>
+		</div> 
+	    <!-- 展示文件信息 -->
+	    <div class='hightlight'>
+	    	<div class="filament"></div>
+	    	<p class="filetitle" v-if="uploadFiles.length===0?false:true">		
+	    		<span>文件数量：{{uploadFiles.length===0?'':uploadFiles.length}}</span>
+	    		<span>文件总大小：{{uploadFiles.allsize}}</span>
+	    	</p>
+	    	<div class="filament"></div>
+	    	<div ref="filecatalogue">
+	    		<div  v-for="item in uploadFiles" :key='item.name' class="catalogue" :sign="item.name">
+	    			<div class="flexbox">
+	    				<div class="ischeck">
+	    					<div @click.stop="check($event,item)" ref='bgc'>
+	    						<i v-if="item.ok" class="layui-icon layui-icon-ok"></i> 
+	    					</div>
+	    				</div>
+	    				<div class="fileone" >
+	    					<h4>
+	    						<span>{{item.name|nameFormat}}</span>
+	    					</h4>
+	    					<div class="detailed">
+	    						<span>{{item.lastModifiedDate|dataFormat}}</span>
+	    						<span>{{item.onesize}}</span>
+	    						<span>{{item.filetype|typeFormat}}</span>
+	    						<!-- <span>{{item.ok}}</span> -->
+	    					</div>
+	    				</div>
+	    			</div>
+	    			<div class="filament"></div>
+	    		</div>
+	    	</div>
+	    </div>
 	</div>
-</div>
 </template>
 <script>
 	import hight from '../assets/js/my.js'
+	import { mapGetters } from 'vuex'
 	export default{
-		data(){
-			return{
-				uploadFiles:new Array(),
-				existflag:false,
-				errmsg:'',
-				allok:false,
-				checkflag:false,
-			}
-		},
+	data(){
+		return{
+			uploadFiles:new Array(),
+			existflag:false,
+			errmsg:'',
+			allok:false,
+			checkflag:false,
+		}
+	},
 	mounted:function(){
 		document.addEventListener('dragenter',e=>{
 			e.preventDefault();
@@ -90,15 +94,12 @@
 			    this.addFiles(item);//添加的单个文件对象
 			})
 		}, false);
+		console.log(`UpLoadFile组件接收到的用户名${this.loginName===''}`);
 	},
 	updated(){
 		// console.log(this.$refs)
 		// console.log(this.$refs.filecatalogue)
-		if (this.uploadFiles.every(item=>item.ok===true)){//当所有文件都被选中全选按钮也会被选中
-		    this.allok=true;
-		    this.$refs.all.style.backgroundColor ='#4A9BF9';
-		    this.$refs.all.style.borderColor = '#4A9BF9';
-		}
+		this.isCheckAll();
 	},
 	methods:{
 		addFiles(file) {
@@ -106,7 +107,7 @@
  		    const filename = file.name;
  		    const index1 = filename.lastIndexOf("."); //返回文件类型中.的位置
  		    const postf = filename.slice(index1 + 1); //获取文件的后缀名
- 		    //传输的文件类型不符合要求
+ 		    // 传输的文件类型不符合要求
  		    if (file.size>=200*1024*1024) {//最大可传输200MB的文件
  		    	this.existflag=true;
  		    	this.errmsg='文件体积过大';//错误，提示信息
@@ -132,6 +133,7 @@
  		    			file.ok=false;
  		    			file.onesize=this.computedSize(file.size);
  		    			this.uploadFiles.unshift(file);
+ 		    			this.isCheckAll();
  		    		}
  		    	}
  		    }
@@ -159,6 +161,7 @@
  				return;
  			}
  			[...el.target.files].forEach(item=>{//同时添加多个文件
+ 				console.log(item);
  			    this.addFiles(item);//添加的单个文件对象
  			})
  			el.target.value='';
@@ -167,21 +170,33 @@
  			if (this.uploadFiles.length <= 0) {
  				return;
  			}
- 			let form=new FormData();
- 			for (let [key,value] of this.uploadFiles.entries()) {
-		    	// 此处不能用for_in循环，因为for_in循环遍历数组的同时，还会遍历数组身上的
-		    	// 自定义属性。
-		    	if(value.ok){
-		    		form.append(`file${key}`, value);
-		    	}
-		    }
-		    let config={
-		    	headers:{'Content-Type':'multipart/from-data'}
-		    }
-		    this.axios.post('/api/SaveFile.php',form,config).then(resp=>{
-		    	let data=resp.data;
-		    	console.log(data)//返回true或false判断是否保存成功
-		    })
+ 			const upLoadArr=this.uploadFiles.filter(item=>item.ok===true);
+ 			if (upLoadArr.length===0) {
+ 				this.existflag=true;
+ 		    	this.errmsg='未选择文件';
+ 			}else{
+ 				if(this.loginName!==''){
+ 					let form=new FormData();
+ 					upLoadArr.forEach((item,index)=>{
+ 						form.append(`file${index}`, item);
+ 					})
+ 					form.append('name',this.loginName);
+ 					let config={
+ 						headers:{'Content-Type':'multipart/from-data'}
+ 					}
+ 					this.axios.post('/api/SaveFile.php',form,config).then(resp=>{
+ 						let data=resp.data;
+		        	    if (data) {//文件上传成功
+		        	    	this.existflag=true;
+		        	    	this.errmsg='保存成功';
+		        	    	this.uploadFiles=[];
+		        	    }
+		        	})
+ 				}else{
+ 					this.existflag=true;
+		        	this.errmsg='请先登录';
+ 				}
+ 			}
 		},
 		check(el,item){
 			item.ok=!item.ok;
@@ -207,7 +222,7 @@
 				return;
 			}
 			this.allok=!this.allok;//初始化为flase全不选，取反
-			console.log(this.allok)
+			// console.log(this.allok)
 			this.uploadFiles.forEach(item=>{//让所有文件处于全选与全不选状态
 				item.ok=this.allok;
 			})
@@ -228,6 +243,21 @@
 			}
 			// 不要用和背景颜色相同的颜色，根本看不清
 			this.$forceUpdate();
+		},
+		isCheckAll(){
+			if (this.uploadFiles.length!==0) {
+				if (this.uploadFiles.every(item=>item.ok===true)){//当所有文件都被选中全选按钮也会被选中
+				    this.allok=true;
+				    this.$refs.all.style.backgroundColor ='#4A9BF9';
+				    this.$refs.all.style.borderColor = '#4A9BF9';
+				}else {
+				    if (this.allok) {// 设置样式前必须保证标签必须存在
+				    	this.allok=false;
+					    this.$refs.all.style.backgroundColor ='transparent'
+					    this.$refs.all.style.borderColor = '#CCC';
+					}
+				}
+			}
 		},
 		beforeEnter(el){
 			el.style.transform = "translate(-50%,-50%)";
@@ -271,7 +301,13 @@
  				this.checkflag=true;
  			}
  		}
- 	}
+ 	},
+ 	computed:{
+		// loginName(){
+		// 	return this.$store.getters.loginName;
+		// }
+		...mapGetters(['loginName'])
+	}
  };
 </script>
 <style lang="scss" scoped>
@@ -279,51 +315,59 @@
 	position: relative;background:skyblue;width:100%;height:250px;
 	display: flex;align-items: center;justify-content: center;box-sizing: border-box;
 	div{
-		width: 120px;height: 75px;background: white;padding: 2px;padding-top: 20px;
-		border: 1px solid #000;box-sizing: border-box;
-		font-size: 13px;text-align: center;
+		width: 120px;height: 75px;background: white;box-sizing: border-box;
+		font-size: 13px;
+	}
+	i{
+		font-size: 35px;color: #4A9BF9;
+		position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);
 	}
 	.load{
-		margin-right: 2px;position: relative;
+		margin-right: 4px;position: relative;
 		.loadinputfile{
 			position: absolute;left: 0;top: 0;opacity: 0;width: 100%;height: 100%;
 		}
 	}
+	.open{
+		position: relative;
+		i{
+			color: purple;font-size: 25px;font-weight: bold;
+		}
+	}
 	.exist{
-		position: absolute;left: 50%;bottom: 0;text-align: center;
-		font-size: 14px;color:red;text-shadow: 0 0 5px black;border-radius: 5px;
+		position: absolute;left: 50%;bottom: -20%;text-align: center;
+		line-height: 35px;width: 20%;background: linear-gradient(.31deg,#3cac8a .7%,#5cceac 99.3%);
+		text-shadow: 0 2px 4px rgba(0,0,0,.25);
+		font-size: 15px;color: white;border-radius: 5px;
 	}
 }
 .checkallbox{
-	display: flex;justify-content: space-between;align-items: center;padding: 0 12px;box-sizing: border-box;
+	display: flex;justify-content: space-between;align-items: center;padding: 0 30px 0 12px;
+	box-sizing: border-box;
 	.checkall{
 		display: flex;justify-content: space-between;align-items: center;height: 40px;
 		span{
 			font-size: 15px;display: inline-block;
 		}
 		div{
-			width: 23px;height: 23px;border-radius: 50%;border: 1px solid #CCC;position: relative;
-			margin-right: 15px;
+			width: 50px;height: 50px;transform-origin: left;transform: scale(.5);
+			border-radius: 50%;border: 3px solid #CCC;position: relative;
 		}
-		div span{
-			display: inline-block;font-size: 15px;
+		div i{
+			display: inline-block;font-size: 32px;font-weight: 600;
 			position: absolute;left: 50%;top:50%;transform: translate(-50%,-50%);
 			text-align: center;box-sizing: border-box;color: white;
 		}
 	}
 	.upload{
-		width: 70px;height: 35px;border-radius: 5px;outline: none;font-size: 15px;
-		border:2px solid #4A9BF9;background: white
+		width: 70px;height: 35px;border-radius: 5px;font-size: 15px;
+		border:2px solid #4A9BF9;background: white;
 	}
 	.upload:focus{
-		outline: 0;border:2px solid purple;
+		border:2px solid purple;
 	}
 }
 .hightlight{
-	p:nth-child(1){
-		border-top:1px solid #CCC;
-		border-bottom: 1px solid #CCC;
-	}
 	.filetitle{
 		height: 35px;line-height: 35px;padding-left: 10px;
 		display: flex;justify-content: space-between;
@@ -333,21 +377,23 @@
 	}
 }
 .hightlight .catalogue{
-	border-bottom: 1px solid #CCC;
 	.flexbox{
-		display: flex;justify-content: flex-start;
+		display: flex;justify-content: space-between;align-items: center;padding-left: 12px;box-sizing: border-box;
 	}
 }
 .ischeck{
 	flex: 1;height:60px;position: relative;
 	div{
-		width: 23px;height: 23px;overflow: hidden;
-		border: 1px solid #CCC;border-radius: 50%;box-sizing: border-box;
-		position: relative;left: 50%;top: 50%;transform: translate(-50%,-50%);
+		// 解决安卓手机渲染圆形圆角变形：
+		//     先把px/rem的值放大一遍，是所有属性的尺寸，然后用transform:scale(.5)缩小一倍，
+		//     就达到无论宽高设置多大的值，圆角都不会出现变形，残缺问题，最后用transform-origin位置，
+		//     也就是以原图形的哪一个轴形变
+		width: 50px;height: 50px;transform-origin: left;transform: translate(0,-50%) scale(.5);
+		position: relative;left: 0;top: 50%;
+		border: 3px solid #CCC;border-radius: 50%;box-sizing: border-box;
 	}
-	// 不要给图标的span设置宽高，即使是百分比也不要给，警告！！！！！
-	div span{
-		display: inline-block;font-size: 15px;
+	div i{
+		display: inline-block;font-size: 32px;font-weight: 600;
 		position: absolute;left: 50%;top:50%;transform: translate(-50%,-50%);
 		text-align: center;box-sizing: border-box;color: white;
 	}
@@ -364,9 +410,15 @@
 	.detailed{
 		width: 100%;flex:1;
 		display: flex;justify-content: space-between;align-items: center;
-		padding-right: 40px;box-sizing: border-box;
-		span{
-			font-size: 14px;display: block;
+		padding-right: 30px;box-sizing: border-box;font-size: 14px;
+		span:nth-child(1){
+			flex:5;
+		}
+		span:nth-child(2){
+			flex:2;
+		}
+		span:nth-child(2){
+			flex:3;
 		}
 	}
 }
