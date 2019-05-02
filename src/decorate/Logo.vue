@@ -1,11 +1,9 @@
 <template>
-	<div>
-		<div class="header" >
-			<h1 :style="[{height:height}]">
+		<div class="header" :style="[{height:height}]">
+			<h1>
 				<img src="../assets/logo.png" alt=""title="myProject" >
 			</h1>
 		</div>
-	</div>
 </template>
 <script>
 export default{
@@ -14,12 +12,11 @@ export default{
 </script>
 <style lang="scss" scoped>
 .header{
-	width: 100%;position: relative;
+	width: 80%;margin: 0 auto;padding: 5px 0;
 	h1{
-		width: 100%;position: relative;height: 70px;margin: 0;
+		height:100%;margin: 0 auto;text-align: center;
 		img{
-			height: 100%; 
-			position: relative;left: 50%;top: 50%;transform: translate(-50%,-50%);
+			position: relative;height: inherit;
 		}
 	}
 }

@@ -13,32 +13,18 @@
 			<div class="sign3"></div>
 			<div class="sign4"></div>
 		</div>
-
 	</div>
 </template>
 <script>
-	export default{
-		data(){
-			return{
-
-			}
-		},
-		created(){
-
-		},
-		methods:{
-
-		}
-	};
 </script>
 <style lang="scss" scoped>
 .lightbox{
-	// width: 100%;overflow-x: hidden;
+	background-color: #FFF;
 }
 .barbox{
-	position: relative;width: 100%;height: 5px;
+	position: relative;width: 100%;height: 2px;
 	div{
-		width: 25%;height: 100%;position: absolute;left: -25%;top: 0;
+		width: 25%;height: 2px;position: absolute;left: -25%;top: 0;
 		animation: move 2.5s linear infinite normal;	
 	}
 	// 如果以25%的宽度，也就是说一行可以完整显示4个，要实现无视觉连续滚动，至少需要5个div，
@@ -71,7 +57,7 @@
 .signbox{
 	position: absolute;width: 100%;left: 0;top:0;overflow-x: hidden;
 	div{
-		width: 25%;float:left;height: 5px;position: relative;left: 0;top:0;
+		width: 25%;float:left;height: 2px;position: relative;left: 0;top:0;
 		animation: toright 2s linear  forwards;	//保持最后一帧的状态也就是，出界
 	}
 	.sign1{

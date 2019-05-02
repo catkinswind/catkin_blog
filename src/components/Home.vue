@@ -1,23 +1,26 @@
 <template>
-	<div>
+	<div style="background-color: #F3F3F3">
 		<lightbar></lightbar>
 		<div class="header">
 			<div class="bar">
-				<ul>
-					<li><a href="#" title="">products</a></li>
-					<li><a href="#" title="">projects</a></li>
-					<li><a href="#" title="">home</a></li>
-					<li><a href="#" title="">uploadfile</a></li>
-					<li><a href="#" title="">induction</a></li>
+				<ul class="content95">
+					<li><a href="#" title="">Products</a></li>
+					<li><a href="#" title="">Projects</a></li>
+					<li><a href="#" title="">Home</a></li>
+					<li><a href="#" title="">Upload Files</a></li>
+					<li><a href="#" title="">Induction</a></li>
+					<li><a href="#" title="">key</a></li>
 				</ul>
 			</div>
-			<div class="title">
+			<div class="filament8"></div>
+			<div class="title content95">
 				<div class="logobox">
-					<logo height="45px"></logo>
+					<logo style="height: 45px;"></logo>
 				</div>
 				<signinbar v-if="signin"></signinbar>
-				<signupbar v-if="!signin" height="45px"></signupbar>
+				<userbar v-if="!signin" height="35px" fontsize="13px"></userbar>
 			</div>
+			<div class="filament8"></div>
 		</div>
 		<div class="content">
 			<div class="left">
@@ -35,7 +38,7 @@ import logo from '../decorate/Logo.vue'
 import uploadfile from './UpLoadFile.vue'
 import lightbar from '../decorate/LightBar.vue'
 import signinbar from '../subcomponents/SignInBar.vue';
-import signupbar from '../subcomponents/SignUpBar.vue'
+import userbar from '../subcomponents/UserBar.vue'
 import { mapGetters } from 'vuex'
 export default{
 	// name: 'patchCheck',
@@ -54,7 +57,7 @@ export default{
 		uploadfile,
 		lightbar,
 		signinbar,
-		signupbar,
+		userbar,
 	},
 	computed:{
 		// loginName(){
@@ -70,23 +73,26 @@ export default{
 </script>
 <style lang="scss" scoped>
 .header{
+	background-color: #FFF;
 	.bar{
 		ul{
-			width: 100%;display: flex;justify-content: space-between;align-items: center;
-			// padding: 0 5px;
-			li{
-				flex: 1;text-align: center;color: black;
-			}
+			display: flex;justify-content: space-between;align-items: center;
 			a{
-				text-decoration: none;font-size: 16px;line-height: 40px
+				font-size: 12px;line-height: 30px;font-weight: 500;letter-spacing: 1px;
+			}
+			a:focus{
+				color: #1F8ACC;
 			}
 		}
 	}
-    .title{
-    	display: flex;justify-content: space-between;align-items: center;
-    	.logobox{
-    		flex:2;
-    	}
-    }
+	.title{
+		display: flex;justify-content: space-between;align-items: center;
+		.logobox{
+			transform: translateX(-20%);
+		}
+	}
+}
+.content{
+	margin-top: 10px;
 }
 </style>

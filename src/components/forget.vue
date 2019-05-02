@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<logo></logo>
+		<logo style="height: 70px"></logo>
 		<div class="box">
 			<div class="content">
 				<div class="title">Reset password</div>
@@ -103,9 +103,12 @@ export default{
 							this.errmsg='修改失败'
 						}
 					}else{
-						this.errmsg='You enter the Username does not exist!';
+						this.errmsg='账号不存在！';
 						this.errflag=true;
 					}
+				}).catch(err=>{
+					this.errmsg='修改失败,服务器错误，请稍后重试！';
+					this.errflag=true;
 				})
 			}
 			else {

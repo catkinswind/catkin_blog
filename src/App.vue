@@ -11,9 +11,9 @@ export default {
 
 };
 </script>
-<style lang="scss">
+<style lang="css">
 html,body{
   width: 100%;height: 100%;overflow-x: hidden;
-  font-family:  Rubik,sans-serif;
+  font-family:  'Ponppins','Source Sans Pro', 'Lucida Grande', sans-serif;
 }
 </style>

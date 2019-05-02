@@ -1,44 +1,36 @@
 <template>
-	<div class="loginOrResgiter">
+	<div>
 		<input type="button" value="Login" @click='toLogin'>
-		<input type="button" value="register" @click='toRegister'>
+		<input type="button" value="Sign Up" @click='toSignUp'>
 	</div>
 </template>
 <script>
 export default{
 	data(){
-		return{
-		     
+		return{		     
         }
-	},
-	created(){
-
 	},
 	methods:{
 		toLogin(){
 			this.$router.push({name:'login'})
 		},
-		toRegister(){
+		toSignUp(){
 			this.$router.push({name:'register'})
 		}
 	}
 };
 </script>
 <style lang="scss" scoped>
-.title .loginOrResgiter{
-	flex:8;display: flex;justify-content: flex-end;
-	input{
-		width: 58px;height: 34px;border-radius: 5px;margin-right: 11px;
-		transition: all 0.4s ease;box-sizing: border-box;font-size: 15px
-	}
-	input:focus{
-		outline: none;
-	}
-	input:nth-child(1){
-		border: 2px solid red;background: transparent;
-	}
-	input:nth-child(2){
-		border: 2px solid coral;background: white;
-	}
+input{
+	letter-spacing: 1px;font-size: 13px;font-weight: 500;background: #FFF;
+}
+input:active{
+	outline: 0;background: rgba(204,204,204,0.4);border-color: #1F8ACC;
+}
+input:nth-child(1){
+	border: 1px solid red;margin-right: 11px;width: 58px;height: 30px;
+}
+input:nth-child(2){
+	border: none;
 }
 </style>

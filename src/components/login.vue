@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<logo></logo>
+		<logo style="height: 70px"></logo>
 		<div class="box">
 			<div class="content">
 				<div class="headportrait">
@@ -71,12 +71,13 @@
 					let form=new FormData();
 					form.append('userName',this.userName);
 					form.append('userPwd',this.userPwd);
+					console.log(this.userName)
 					let config={
 						headers:{'Content-Type':'multipart/from-data'}
 					}
 					this.axios.post('/api/login.php',form,config).then(resp=>{
 						let data=resp.data;
-				        // console.log(data)
+				        console.log(data)
 				        if (data.isname) {//账号存在
 				            if (data.ispwd) {//密码正确
 				            	this.$router.push({name:'home'});
@@ -85,16 +86,19 @@
 					    	    Toast({
 					    		    message:"登录成功",
 					    		    duration:1000,
-					    		    className:'toastsuc'
+					    		    className:'toastsuc',
 					    	    })
 					        }else {
-					    	    this.errmsg='Password is wrong!';
+					    	    this.errmsg='密码错误！';
 					    	    this.errflag=true;
 					        }
 					    }else {
-					    	this.errmsg='You enter the Username does not exist!';
+					    	this.errmsg='账号不存在！';
 					    	this.errflag=true;
 					    }
+				    }).catch(err=>{
+				    	this.errmsg='登录失败，服务器错误！';
+					    this.errflag=true;
 				    })
 				}
 			},
@@ -120,12 +124,5 @@
 	background: #FFF;padding-left: 0;margin-bottom:20px ;
 	text-shadow: 0 2px 4px rgba(0,0,0,.25);font-weight: 600;
 }
-.toastsuc{
-	background: linear-gradient(.31deg,#3cac8a .7%,#5cceac 99.3%) !important;
-	text-shadow: 0 2px 4px rgba(0,0,0,.25);
-	/* Mint-Ui组件的提示文字 */
-	span{
-		text-align: left;font-size: 12px;color: white;
-	}
-}
+
 </style>

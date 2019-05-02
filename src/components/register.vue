@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<logo></logo>
+		<logo style="height: 70px"></logo>
 		<div class="box">
 			<div class="content">
 				
@@ -25,7 +25,7 @@
 					<label for="register_pwd">
 						Password
 					</label>
-					<input id="register_pwd" type="password" v-model.trim="userPwd" placeholder="" @change="pwd" ref="pwd">
+					<input id="register_pwd" type="password" v-model.trim="userPwd" placeholder="密码不低于3位字符，且不能含有特殊字符和空格" @change="pwd" ref="pwd">
 					<div class="forgetline">
 						<label for="register_pwd_repeeat">
 							<span>Repeeat the password</span> 
@@ -115,7 +115,7 @@
 	    pwd(){
 	    	const el=this.$refs.pwd
 	    	if (this.userPwd!=='') {
-				if (!(/^[-_A-z0-9$@!%*#?&]{4,16}$/.test(this.userPwd))){//密码格式不对
+				if (!(/^[-_A-z0-9$@!%*#?&]{4,}$/.test(this.userPwd))){//密码格式不对
 					hight(el,'red');
 				}else {
 					this.repwd();
@@ -188,12 +188,20 @@
 				            	this.succclassflag=true;
 				            }
 				            else {
-				            	this.registerflag='注册失败'
+				            	this.registerflag='注册失败!'
 				            	hight(el,'red');
 				            	this.errclassflag=true;
 				            }
+				        }).catch(err=>{
+				        	this.registerflag='注册失败，服务器错误，请稍后重试！'
+				        	hight(el,'red');
+				        	this.errclassflag=true;
 				        })
 				    }
+				}).catch(err=>{
+					this.registerflag='注册失败，服务器错误，请稍后重试！'
+				    hight(el,'red');
+				    this.errclassflag=true;
 				})
 			}else {
 				this.$refs.btn.setAttribute('readonly', false)
@@ -236,13 +244,14 @@
 	position: relative;width: 100%;
 	.emailcontainer{
 		position: absolute;left: 0;top: 40px;width: 100%;background: #FFF;border-radius: 5px;
-		border: 1px solid #CCC;box-sizing: border-box;display:none;overflow: hidden;
+		border: 1px solid #CCC;
+		box-sizing: border-box;display:none;overflow: hidden;
 		p{
-			width: 100%;height: 35px;line-height: 35px;font-size: 13px;font-weight: 500;
-			padding-left: 20px;box-sizing: border-box;border-radius: 5px
+			width: 100%;line-height: 40px;font-size: 13px;font-weight: 500;
+			padding-left: 20px;border-bottom: 1px solid #CCC;box-sizing: border-box;
 		}
-		p:nth-child(1){
-			margin-top: 5px;
+		p:last-child{
+			border-bottom: none;
 		}
 	}
 }

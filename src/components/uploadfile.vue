@@ -190,11 +190,17 @@
 		        	    	this.existflag=true;
 		        	    	this.errmsg='保存成功';
 		        	    	this.uploadFiles=[];
+		        	    }else {
+		        	    	this.existflag=true;
+		        	    	this.errmsg='保存失败!';
 		        	    }
+		        	}).catch(error=>{
+		        		this.existflag=true;
+		        	    this.errmsg='上传失败，服务器错误!';
 		        	})
  				}else{
  					this.existflag=true;
-		        	this.errmsg='请先登录';
+		        	this.errmsg='请先登录!';
  				}
  			}
 		},
@@ -312,7 +318,7 @@
 </script>
 <style lang="scss" scoped>
 .dropbox{
-	position: relative;background:skyblue;width:100%;height:250px;
+	position: relative;background:skyblue;width:500px;height:250px;margin: 0 auto;
 	display: flex;align-items: center;justify-content: center;box-sizing: border-box;
 	div{
 		width: 120px;height: 75px;background: white;box-sizing: border-box;
@@ -343,7 +349,7 @@
 }
 .checkallbox{
 	display: flex;justify-content: space-between;align-items: center;padding: 0 30px 0 12px;
-	box-sizing: border-box;
+	box-sizing: border-box;background-color: #FFF;
 	.checkall{
 		display: flex;justify-content: space-between;align-items: center;height: 40px;
 		span{
@@ -363,8 +369,10 @@
 		width: 70px;height: 35px;border-radius: 5px;font-size: 15px;
 		border:2px solid #4A9BF9;background: white;
 	}
-	.upload:focus{
-		border:2px solid purple;
+	.upload:active{
+		border:none;color:#FFF;
+		background-color:skyblue;
+		// #01ACC1
 	}
 }
 .hightlight{
