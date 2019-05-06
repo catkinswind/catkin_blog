@@ -5,13 +5,14 @@
 	display: flex;flex-direction: column;justify-content: center;
 	font-weight: 600;font-size: 13px;background-color: #FFF;
 	.about{
-		width: 100%;line-height: 40px;border: 2px solid #CCC;border-radius: 5px;margin-top: 20px;
+		width: 100%;line-height: 40px;border: 1px solid #CCC;box-shadow: 0 0 3px #CCC;
+		border-radius: 5px;margin-top: 20px;
 		box-sizing: border-box;background: white;text-align: center;
 	}
 }
 .box .content{
-	width: 100%;text-align: left;padding:15px;padding-bottom: 20px;
-	border: 2px solid #ccc;border-radius: 5px;background: white;box-sizing: border-box;
+	width: 100%;text-align: left;padding:15px;padding-bottom: 20px;border: 1px solid #CCC;
+	box-shadow: 0 0 3px #CCC;border-radius: 5px;background: white;box-sizing: border-box;
 	.headportrait{
 		width: 150px;height: 150px;
 		margin: 10px auto 30px;border-radius: 50%;overflow: hidden;
@@ -86,4 +87,13 @@
 }
 .content95{
 	position: relative;width: 95%;margin: 0 auto;
+}
+input[type="file"],
+input[type="button"]{
+	-webkit-appearance : none ;
+    cursor: pointer;
+}
+button{
+	-webkit-appearance : none ;
+    cursor: pointer;
 }

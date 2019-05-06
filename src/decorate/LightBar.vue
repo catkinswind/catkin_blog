@@ -19,22 +19,23 @@
 </script>
 <style lang="scss" scoped>
 .lightbox{
-	background-color: #FFF;
+	background-color: #FFF;position: relative;top:2px;
 }
 .barbox{
 	position: relative;width: 100%;height: 2px;
 	div{
 		width: 25%;height: 2px;position: absolute;left: -25%;top: 0;
-		animation: move 2.5s linear infinite normal;	
+		-webkit-animation:move 2.5s linear infinite normal;	
+		animation:move 2.5s linear infinite normal;	
 	}
 	// 如果以25%的宽度，也就是说一行可以完整显示4个，要实现无视觉连续滚动，至少需要5个div，
 	// 动画时长2.5s，则每一个div的延迟是0.5s，可以简单的认为延迟时间是动画时长除于div的实际个数，
 	// 起始是-25%，终止是100%
 	@keyframes move {
-		0% {
+		from {
 			left:-25%;
 		}
-		100%{
+		to {
 			left: 100%;
 		}
 	}
@@ -42,7 +43,7 @@
 		background-color: coral;
 	}
 	.bar2{
-		background-color: black;animation-delay: 0.5s
+		background-color: black;animation-delay: 0.5s;
 	}
 	.bar3{
 		background-color: palegreen;animation-delay: 1s
@@ -58,7 +59,7 @@
 	position: absolute;width: 100%;left: 0;top:0;overflow-x: hidden;
 	div{
 		width: 25%;float:left;height: 2px;position: relative;left: 0;top:0;
-		animation: toright 2s linear  forwards;	//保持最后一帧的状态也就是，出界
+		animation:toright 2s linear  forwards;  //保持最后一帧的状态也就是，出界
 	}
 	.sign1{
 		background-color: blue;
@@ -73,12 +74,13 @@
 		background-color: skyblue;
 	}
 	@keyframes toright {
-		0% {
+		from {
 			left:0;
 		}
-		100%{
+		to {
 			left: 100%;
 		}
 	}
+
 }
 </style>

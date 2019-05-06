@@ -4,12 +4,12 @@
 		<div class="header">
 			<div class="bar">
 				<ul class="content95">
-					<li><a href="#" title="">Products</a></li>
-					<li><a href="#" title="">Projects</a></li>
-					<li><a href="#" title="">Home</a></li>
-					<li><a href="#" title="">Upload Files</a></li>
-					<li><a href="#" title="">Induction</a></li>
-					<li><a href="#" title="">key</a></li>
+					<li><a href="javascript::" title="">Products</a></li>
+					<li><a href="javascript::" title="">Projects</a></li>
+					<li><a href="javascript::" title="">Home</a></li>
+					<li><a href="javascript::" title="">Upload Files</a></li>
+					<li><a href="javascript::" title="">Induction</a></li>
+					<li><a href="javascript::" title="">key</a></li>
 				</ul>
 			</div>
 			<div class="filament8"></div>
@@ -41,14 +41,13 @@ import signinbar from '../subcomponents/SignInBar.vue';
 import userbar from '../subcomponents/UserBar.vue'
 import { mapGetters } from 'vuex'
 export default{
-	// name: 'patchCheck',
 	data(){
 		return{
-			// signin:true,
         }
 	},
 	created(){
 		console.log(`Home组件接收到的用户名${this.$store.getters.loginName}`);
+		this.$_zp();
 	},
 	methods:{
 	},

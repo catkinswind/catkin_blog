@@ -52,7 +52,6 @@
 <script>
 	import {Toast} from 'mint-ui';
 	import logo from '../decorate/Logo.vue'
-	import hight from '../assets/js/my.js'
 	export default{
 		data(){
 			return{
@@ -112,28 +111,6 @@
 	    cancelcontainer(){
 	    	this.$refs.email.style.display = 'none';
 	    },
-	    pwd(){
-	    	const el=this.$refs.pwd
-	    	if (this.userPwd!=='') {
-				if (!(/^[-_A-z0-9$@!%*#?&]{4,}$/.test(this.userPwd))){//密码格式不对
-					hight(el,'red');
-				}else {
-					this.repwd();
-					el.style.border =' 1px solid #CCC';
-					el.style.boxShadow ='0 0 5px transparent';
-				}
-			}
-			
-		},
-		repwd(){
-			this.errflag=false
-			if (this.repuserPwd!==''&&this.userPwd!=='') {
-				if (this.repuserPwd!==this.userPwd) {//两次密码不一致
-					this.errflag=true
-					this.errmsg='两次输入的密码不一致'
-				}
-			}
-		},
 		register(){
 			const el=this.$refs.btn;
 			el.style.border =' 1px solid #CCC';
@@ -149,7 +126,7 @@
 				this.emailmsg='请输入邮箱'
 			}
 			if (this.userPwd==='') {
-				hight(this.$refs.pwd,'red');
+				this.$_hight(this.$refs.pwd,'red');
 			}
 			if (this.repuserPwd==='') {
 				this.errflag=true;
@@ -169,7 +146,7 @@
 				    // console.log(data)
 				    if (data.isname) {//账号存在
 				    	this.registerflag='用户名已存在'
-				    	hight(el,'red');
+				    	this.$_hight(el,'red');
 				    	this.errclassflag=true;
 				    }else {
 				    	let form=new FormData();
@@ -184,23 +161,23 @@
 				    		console.log(data)
 				            if (data===1) {//存入json文件中并验证成功
 				            	this.registerflag='注册成功'
-				            	hight(el,'green');
+				            	this.$_hight(el,'green');
 				            	this.succclassflag=true;
 				            }
 				            else {
 				            	this.registerflag='注册失败!'
-				            	hight(el,'red');
+				            	this.$_hight(el,'red');
 				            	this.errclassflag=true;
 				            }
 				        }).catch(err=>{
 				        	this.registerflag='注册失败，服务器错误，请稍后重试！'
-				        	hight(el,'red');
+				        	this.$_hight(el,'red');
 				        	this.errclassflag=true;
 				        })
 				    }
 				}).catch(err=>{
 					this.registerflag='注册失败，服务器错误，请稍后重试！'
-				    hight(el,'red');
+				    this.$_hight(el,'red');
 				    this.errclassflag=true;
 				})
 			}else {

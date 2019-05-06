@@ -8,17 +8,17 @@
 					<label for="login_field">
 						Username
 					</label>
-					<input id="login_field" type="text" v-model.trim="userName" placeholder="" v-focus spellcheck="false">
-					<label for="register_pwd">
+					<input id="login_field" type="text" v-model.trim="userName" spellcheck="false">
+					<label for="register_pwd" v-focus>
 						New password
 					</label>
-					<input id="register_pwd" type="password" v-model.trim="userPwd" placeholder="" @change="pwd" ref="pwd">
+					<input id="register_pwd" type="password" v-model.trim="userPwd" @change="pwd" ref="pwd"  >
 					<div class="forgetline">
 						<label for="register_pwd_repeeat">
 							<span>Repeeat the password</span> 
 						</label>
 					</div>
-					<input id="register_pwd_repeeat" type="password" v-model.trim="repuserPwd" placeholder="" @change="repwd" @keyup.enter='confirm'>
+					<input id="register_pwd_repeeat" type="password" v-model.trim="repuserPwd" @change="repwd" @keyup.enter='confirm'>
 					<div class="blank"  v-if='!errflag'></div>
 					<div class="verify" v-if='errflag'>{{errmsg}}</div>
 					<input class="btn" type="button" name="" value="Confirm" @click="confirm" ref="btn">
@@ -35,7 +35,6 @@
 <script>
 import {Toast} from 'mint-ui';
 import logo from '../decorate/Logo.vue'
-import hight from '../assets/js/my.js'
 export default{
 	data(){
 		return{
@@ -51,30 +50,10 @@ export default{
 		tologin(){
 			this.$router.push({name:'login'})
 		},
-		pwd(){
-			const el=this.$refs.pwd
-			if (this.userPwd!=='') {
-				    if (!(/^[-_A-z0-9$@!%*#?&]{4,16}$/.test(this.userPwd))){//密码格式不对
-				    	hight(el,'red');
-				    }else {
-				    	this.repwd();
-				    	el.style.border =' 1px solid #CCC';
-				    	el.style.boxShadow ='0 0 5px transparent';
-				    }
-				}
-			},
-		repwd(){
-			this.errflag=false
-			if (this.repuserPwd!==''&&this.userPwd!=='') {
-				if (this.repuserPwd!==this.userPwd) {//两次密码不一致
-					this.errflag=true
-					this.errmsg='两次输入的密码不一致'
-				}
-			}
-		},
+		
 		confirm(){
 			if (this.userPwd==='') {
-				hight(this.$refs.pwd,'red');
+				this.$_hight(this.$refs.pwd,'red');
 			}
 			if (this.repuserPwd==='') {
 				this.errflag=true;

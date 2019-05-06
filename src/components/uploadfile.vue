@@ -42,12 +42,12 @@
 	    				</div>
 	    				<div class="fileone" >
 	    					<h4>
-	    						<span>{{item.name|nameFormat}}</span>
+	    						<span>{{item.name|fileNameFormat}}</span>
 	    					</h4>
 	    					<div class="detailed">
 	    						<span>{{item.lastModifiedDate|dataFormat}}</span>
 	    						<span>{{item.onesize}}</span>
-	    						<span>{{item.filetype|typeFormat}}</span>
+	    						<span>{{item.filetype|fileTypeFormat}}</span>
 	    						<!-- <span>{{item.ok}}</span> -->
 	    					</div>
 	    				</div>
@@ -59,7 +59,6 @@
 	</div>
 </template>
 <script>
-	import hight from '../assets/js/my.js'
 	import { mapGetters } from 'vuex'
 	export default{
 	data(){
@@ -94,7 +93,7 @@
 			    this.addFiles(item);//添加的单个文件对象
 			})
 		}, false);
-		console.log(`UpLoadFile组件接收到的用户名${this.loginName===''}`);
+		console.log(`UpLoadFile组件接收到的用户名为空${this.loginName===''}`);
 	},
 	updated(){
 		// console.log(this.$refs)
@@ -123,7 +122,7 @@
  		    				// 在上传列表中找到已存在的文件，并高亮提示，后续还需要判断数据库是否有同名文件，
  		    				// 覆盖或改名，改名可采用重命名或者在同名文件后加(1)的方式
  		    				if (ele.getAttribute('sign')===filename) {
- 		    					hight(ele,'red',' #CCC');
+ 		    					this.$_hight(ele,'red',' #CCC');
  		    					this.existflag=true;
  		    					this.errmsg='文件已存在';
  		    				}
@@ -177,10 +176,10 @@
  			}else{
  				if(this.loginName!==''){
  					let form=new FormData();
+ 					form.append('name',this.loginName);
  					upLoadArr.forEach((item,index)=>{
  						form.append(`file${index}`, item);
  					})
- 					form.append('name',this.loginName);
  					let config={
  						headers:{'Content-Type':'multipart/from-data'}
  					}
@@ -278,27 +277,6 @@
 			this.existflag=!this.existflag;
 		}
 	},
-	filters:{
-		nameFormat:function(dataStr){
-			const index1 = dataStr.lastIndexOf("."); //返回文件类型中.的位置
- 		    const postf = dataStr.slice(index1); //获取文件的后缀名
- 		    if (dataStr.length>=40) {
- 		    	dataStr=dataStr.slice(0,35)+'......';
- 		    }
- 		    return dataStr.replace(postf,'');
- 		},
- 		typeFormat:function(dataStr){
- 			dataStr=dataStr.toUpperCase();
- 			'txt', 'jpg', 'jpeg', 'gif', 'png', 'js','php','class'
- 			if (dataStr==='TXT'||dataStr==="JS") {
- 				return `${dataStr}文本`;
- 			}else if (dataStr==="JPG"||dataStr==="JPEG"||dataStr==="GIF"||dataStr==="PNG") {
- 				return `${dataStr}图片`;
- 			}else {
- 				return `${dataStr}文件`;
- 			}
- 		}
- 	},
  	watch:{
  		'uploadFiles.length':function(val){
  			if (val==0) {
@@ -318,7 +296,7 @@
 </script>
 <style lang="scss" scoped>
 .dropbox{
-	position: relative;background:skyblue;width:500px;height:250px;margin: 0 auto;
+	position: relative;background:skyblue;width:400px;height:250px;margin: 0 auto;
 	display: flex;align-items: center;justify-content: center;box-sizing: border-box;
 	div{
 		width: 120px;height: 75px;background: white;box-sizing: border-box;
@@ -356,8 +334,8 @@
 			font-size: 15px;display: inline-block;
 		}
 		div{
-			width: 50px;height: 50px;transform-origin: left;transform: scale(.5);
-			border-radius: 50%;border: 3px solid #CCC;position: relative;
+			width: 45px;height: 45px;transform-origin: left;transform: scale(.5);
+			border-radius: 50%;border: 3px solid #CCC;position: relative;box-sizing: border-box;
 		}
 		div i{
 			display: inline-block;font-size: 32px;font-weight: 600;
@@ -366,7 +344,7 @@
 		}
 	}
 	.upload{
-		width: 70px;height: 35px;border-radius: 5px;font-size: 15px;
+		width: 60px;height: 30px;border-radius: 5px;font-size: 13px;
 		border:2px solid #4A9BF9;background: white;
 	}
 	.upload:active{
@@ -390,13 +368,13 @@
 	}
 }
 .ischeck{
-	flex: 1;height:60px;position: relative;
+	flex: 1;height:50px;position: relative;
 	div{
 		// 解决安卓手机渲染圆形圆角变形：
 		//     先把px/rem的值放大一遍，是所有属性的尺寸，然后用transform:scale(.5)缩小一倍，
 		//     就达到无论宽高设置多大的值，圆角都不会出现变形，残缺问题，最后用transform-origin位置，
 		//     也就是以原图形的哪一个轴形变
-		width: 50px;height: 50px;transform-origin: left;transform: translate(0,-50%) scale(.5);
+		width: 45px;height: 45px;transform-origin: left;transform: translate(0,-50%) scale(.5);
 		position: relative;left: 0;top: 50%;
 		border: 3px solid #CCC;border-radius: 50%;box-sizing: border-box;
 	}
@@ -411,14 +389,14 @@
 	h4{
 		width: 100%;flex:1;
 		span{
-			font-size: 17px;display: block;
-			position: relative;left: 0;top: 50%;transform: translateY(-50%);
+			font-size: 16px;display: block;
+			position: relative;
 		}
 	}
 	.detailed{
 		width: 100%;flex:1;
 		display: flex;justify-content: space-between;align-items: center;
-		padding-right: 30px;box-sizing: border-box;font-size: 14px;
+		padding-right: 30px;box-sizing: border-box;font-size: 13px;
 		span:nth-child(1){
 			flex:5;
 		}

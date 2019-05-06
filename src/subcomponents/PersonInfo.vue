@@ -34,7 +34,7 @@ import userbar from './UserBar.vue'
 export default{
 	data(){
 		return{
-		     list:['个人主页','完善信息','通用设置','功能反馈','关于我们','加入我们']
+		     list:['个人主页','完善信息','通用设置','功能反馈','关于我们','加入我们','1.1.0']
         }
 	},
 	created(){

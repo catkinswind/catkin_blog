@@ -36,29 +36,12 @@ import store from './store/index.js';
 //      sessionStorage，在关闭页面后数据才会消失
 clearVuexAlong(true,false);//关闭页面数据被清除，但切换页面不会被清除
 
+import plugin from './pulgin/plugin.js'
+Vue.use(plugin);
+
 Vue.config.productionTip = false;
 
-// import hight from './js/my.js'
 import app from './App.vue'
-Vue.directive('focus',{
-	inserted:function(el){
-		el.focus();
-	}
-})
-Vue.filter('dataFormat',function(dataStr,pattern=""){
-	var dt=new Date(dataStr);
-	var y=dt.getFullYear();
-	var m=(dt.getMonth()+1).toString().padStart(2,'0');
-	var d=dt.getDate().toString().padStart(2,'0');
-	if (pattern.toLowerCase()==='yy-mm-dd') {
-		return `${y}-${m}-${d}`;
-	}else {
-		var hh=dt.getHours().toString().padStart(2,'0');
-		var mm=dt.getMinutes().toString().padStart(2,'0');
-		var ss=dt.getSeconds().toString().padStart(2,'0');
-		return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
-	}
-});
 // new Vue({
 //   el:'#app',
 //   components:{
