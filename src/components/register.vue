@@ -25,14 +25,20 @@
 					<label for="register_pwd">
 						Password
 					</label>
-					<input id="register_pwd" type="password" v-model.trim="userPwd" placeholder="密码不低于3位字符，且不能含有特殊字符和空格" @change="pwd" ref="pwd">
+					<div class="eye">
+						<input id="register_pwd" type="password" v-model.trim="userPwd" placeholder="密码不低于3位字符，且不能含有特殊字符和空格" @change="pwd" ref="pwd">
+						<i class="layui-icon layui-icon-password" @click='$_openeye($event,$refs.pwd)'></i>
+					</div>
 					<div class="forgetline">
 						<label for="register_pwd_repeeat">
 							<span>Repeeat the password</span> 
 						</label>
 						<a href="javascript:;" @click="tologin">Already have an account?</a>
 					</div>
-					<input id="register_pwd_repeeat" type="password" v-model.trim="repuserPwd" placeholder="" @change="repwd" @keyup.enter='register'>
+					<div class="eye">
+						<input id="register_pwd_repeeat" type="password" v-model.trim="repuserPwd" placeholder="" @change="repwd" @keyup.enter='register' ref='eye'>
+						<i class="layui-icon layui-icon-password" @click='$_openeye($event,$refs.eye)'></i>
+					</div>
 					<div class="blank"  v-if='!errflag'></div>
 					<div class="verify" v-if='errflag'>{{errmsg}}</div>
 					<input class="btn" type="button" name="" value="Register" @click="register" ref="btn">
@@ -43,7 +49,6 @@
 				</div>
 			</div>
 			<div class="about">
-
 				<span class="entry">Application guidelines</span>
 			</div>
 		</div>
@@ -51,7 +56,6 @@
 </template>
 <script>
 	import {Toast} from 'mint-ui';
-	import logo from '../decorate/Logo.vue'
 	export default{
 		data(){
 			return{
@@ -136,57 +140,68 @@
 			let blank=this.userName!==''&&this.userEmail!==''&&this.userPwd!==''&&this.repuserPwd!=='';
 			if (flag&&blank) {
 				this.$refs.btn.removeAttribute('readonly');
-				let form=new FormData();
-				form.append('userName',this.userName);
-				let config={
-					headers:{'Content-Type':'multipart/from-data'}
-				}
-				this.axios.post('/api/register.php',form,config).then(resp=>{
-					let data=resp.data;
-				    // console.log(data)
-				    if (data.isname) {//账号存在
-				    	this.registerflag='用户名已存在'
-				    	this.$_hight(el,'red');
-				    	this.errclassflag=true;
-				    }else {
-				    	let form=new FormData();
-				    	form.append('userName',this.userName);
-				    	form.append('userEmail',this.userEmail);
-				    	form.append('userPwd',this.userPwd);
-				    	let config={
-				    		headers:{'Content-Type':'multipart/from-data'}
-				    	}
-				    	this.axios.post('/api/register.php',form,config).then(resp=>{
-				    		let data=resp.data;
-				    		console.log(data)
-				            if (data===1) {//存入json文件中并验证成功
-				            	this.registerflag='注册成功'
-				            	this.$_hight(el,'green');
-				            	this.succclassflag=true;
-				            }
-				            else {
-				            	this.registerflag='注册失败!'
+				this.Alert({
+					message:'No matter where people go and no matter how far they go,they will try their best to go home enjoying family time. And no matter what difficulty or trouble they are experiencing,they will put aside for the period of time. In every house,the main atmosphere is happiness. What do people usually do during the New Year time？',
+					resolve:'Accept',
+					reject:'Cancel'
+				},(result)=>{
+					if(result.res){
+						let form=new FormData();
+				        form.append('userName',this.userName);
+				        let config={
+				        	headers:{'Content-Type':'multipart/from-data'}
+				        }
+				        this.axios.post('/api/register.php',form,config).then(resp=>{
+					        let data=resp.data;
+				            // console.log(data)
+				            if (data.isname) {//账号存在
+				            	this.registerflag='用户名已存在'
 				            	this.$_hight(el,'red');
 				            	this.errclassflag=true;
+				            }else {
+				            	let form=new FormData();
+				            	form.append('userName',this.userName);
+				            	form.append('userEmail',this.userEmail);
+				            	form.append('userPwd',this.userPwd);
+				            	let config={
+				            		headers:{'Content-Type':'multipart/from-data'}
+				            	}
+				            	this.axios.post('/api/register.php',form,config).then(resp=>{
+				            		let data=resp.data;
+				            		console.log(data)
+				                    if (data===1) {//存入json文件中并验证成功
+				                    	this.registerflag='注册成功'
+				                    	this.$_hight(el,'green');
+				                    	this.succclassflag=true;
+				                    }
+				                    else {
+				                    	this.registerflag='注册失败!'
+				                    	this.$_hight(el,'red');
+				                    	this.errclassflag=true;
+				                    }
+				                }).catch(err=>{
+				                	this.registerflag='注册失败，服务器错误，请稍后重试！'
+				                	this.$_hight(el,'red');
+				                	this.errclassflag=true;
+				                })
 				            }
 				        }).catch(err=>{
 				        	this.registerflag='注册失败，服务器错误，请稍后重试！'
-				        	this.$_hight(el,'red');
-				        	this.errclassflag=true;
+				            this.$_hight(el,'red');
+				            this.errclassflag=true;
 				        })
-				    }
-				}).catch(err=>{
-					this.registerflag='注册失败，服务器错误，请稍后重试！'
-				    this.$_hight(el,'red');
-				    this.errclassflag=true;
-				})
+					}else {
+						this.registerflag='注册失败，没有接受协议！'
+				        this.errclassflag=true;
+					}
+				});
 			}else {
 				this.$refs.btn.setAttribute('readonly', false)
 			}
-		}
+		},
 	},
 	components:{
-		logo
+		logo:()=>import('../decorate/Logo.vue'),
 	},
 	updated(){
 		let el=this.$refs.email;
@@ -221,7 +236,7 @@
 	position: relative;width: 100%;
 	.emailcontainer{
 		position: absolute;left: 0;top: 40px;width: 100%;background: #FFF;border-radius: 5px;
-		border: 1px solid #CCC;
+		border: 1px solid #CCC;z-index: 3;
 		box-sizing: border-box;display:none;overflow: hidden;
 		p{
 			width: 100%;line-height: 40px;font-size: 13px;font-weight: 500;
@@ -232,6 +247,5 @@
 		}
 	}
 }
-
 </style>
 

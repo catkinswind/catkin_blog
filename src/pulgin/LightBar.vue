@@ -19,7 +19,7 @@
 </script>
 <style lang="scss" scoped>
 .lightbox{
-	background-color: #FFF;position: relative;top:2px;
+	background-color: #FFF;position: relative;
 }
 .barbox{
 	position: relative;width: 100%;height: 2px;

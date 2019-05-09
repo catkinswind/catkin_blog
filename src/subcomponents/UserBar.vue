@@ -7,7 +7,7 @@
 	</div>
 </template>
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters,mapMutations } from 'vuex'
 export default{
 	props:['height','fontsize'],
 	data(){
@@ -15,8 +15,10 @@ export default{
         }
 	},
 	methods:{
+		...mapMutations(['setBackRoutePath']),
 		info(){
-			this.$router.push('info')
+			this.setBackRoutePath(this.$route.path)
+			this.$router.push('/info')
 		}
 	},
 	computed:{

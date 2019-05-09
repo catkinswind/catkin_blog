@@ -7,7 +7,12 @@
 </template>
 <script>
 export default{
-	props:['height'],
+	props:{
+		height:{
+			type: String,
+			default: '45px',
+		}
+	},
 };
 </script>
 <style lang="scss" scoped>

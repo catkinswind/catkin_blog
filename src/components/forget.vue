@@ -8,17 +8,23 @@
 					<label for="login_field">
 						Username
 					</label>
-					<input id="login_field" type="text" v-model.trim="userName" spellcheck="false">
-					<label for="register_pwd" v-focus>
+					<input id="login_field" type="text" v-model.trim="userName" spellcheck="false" v-focus>
+					<label for="register_pwd">
 						New password
 					</label>
-					<input id="register_pwd" type="password" v-model.trim="userPwd" @change="pwd" ref="pwd"  >
+					<div class="eye">
+						<input id="register_pwd" type="password" v-model.trim="userPwd" @change="pwd" ref="pwd"  >
+						<i class="layui-icon layui-icon-password" @click='$_openeye($event,$refs.pwd)'></i>
+					</div>
 					<div class="forgetline">
 						<label for="register_pwd_repeeat">
 							<span>Repeeat the password</span> 
 						</label>
 					</div>
-					<input id="register_pwd_repeeat" type="password" v-model.trim="repuserPwd" @change="repwd" @keyup.enter='confirm'>
+					<div class="eye">
+						<input id="register_pwd_repeeat" type="password" v-model.trim="repuserPwd" @change="repwd" @keyup.enter='confirm' ref="eye3">
+						<i class="layui-icon layui-icon-password" @click='$_openeye($event,$refs.eye3)'></i>
+					</div>
 					<div class="blank"  v-if='!errflag'></div>
 					<div class="verify" v-if='errflag'>{{errmsg}}</div>
 					<input class="btn" type="button" name="" value="Confirm" @click="confirm" ref="btn">
@@ -34,7 +40,6 @@
 </template>
 <script>
 import {Toast} from 'mint-ui';
-import logo from '../decorate/Logo.vue'
 export default{
 	data(){
 		return{
@@ -50,7 +55,6 @@ export default{
 		tologin(){
 			this.$router.push({name:'login'})
 		},
-		
 		confirm(){
 			if (this.userPwd==='') {
 				this.$_hight(this.$refs.pwd,'red');
@@ -97,7 +101,7 @@ export default{
 		
 	},
 	components:{
-		logo
+		logo:()=>import('../decorate/Logo.vue'),
 	},
 	created(){
 		this.userName=this.$route.params.name;

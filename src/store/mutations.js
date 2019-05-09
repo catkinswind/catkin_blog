@@ -10,12 +10,18 @@
   例如，当调用了两个包含异步回调的 mutation 来改变状态，怎么知道什么时候回调和哪个先回调呢？
   这就是为什么要区分这两个概念，在 Vuex 中，mutation 都是同步事务
  */
-import *as types from './mutation-types.js';
+import * as types from './mutation-types.js';
 
-const mutations={
-	[types.loginUserName](state,name){
-		state.userName=name;
-	}
+const mutations = {
+  [types.loginUserName](state, name) {
+    state.userName = name;
+  },
+  [types.setTimer](state, Timer) {
+    state.Timer = Timer;
+  },
+  [types.setBackRoutePath](state, backRoutePath) {
+    state.backRoutePath = backRoutePath;
+  }
 };
 // 任何由"loginUserName"导致的状态变更都应该在 this.$store.commit('loginUserName') 时完成
 export default mutations;

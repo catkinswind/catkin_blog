@@ -5,7 +5,7 @@
 				<i class="layui-icon layui-icon-upload"></i>
 				<input  class="loadinputfile" type="file" @change="buttonCheck" multiple="multiple" />
 			</div> 
-			<div class="open">
+			<div class="open" title="点击此处下载文件" @click='download'>
 				<i class="layui-icon layui-icon-tabs"></i>
 			</div>
 			<transition
@@ -41,13 +41,11 @@
 	    					</div>
 	    				</div>
 	    				<div class="fileone" >
-	    					<h4>
-	    						<span>{{item.name|fileNameFormat}}</span>
-	    					</h4>
+	    					<p>{{item.name|fileNameFormat}}</p>
 	    					<div class="detailed">
-	    						<span>{{item.lastModifiedDate|dataFormat}}</span>
-	    						<span>{{item.onesize}}</span>
-	    						<span>{{item.filetype|fileTypeFormat}}</span>
+	    						<span>{{item.lastModifiedDate|dateFormat}}</span>
+	    						<span>{{item.size|computedSize}}</span>
+	    						<span>{{item.name|fileTypeFormat}}</span>
 	    						<!-- <span>{{item.ok}}</span> -->
 	    					</div>
 	    				</div>
@@ -56,6 +54,7 @@
 	    		</div>
 	    	</div>
 	    </div>
+        <!-- <a href="http://127.0.0.1/api/mysqlphp.php" title="" download="f.php">download</a> -->
 	</div>
 </template>
 <script>
@@ -104,17 +103,12 @@
 		addFiles(file) {
 			// console.log(file)
  		    const filename = file.name;
- 		    const index1 = filename.lastIndexOf("."); //返回文件类型中.的位置
- 		    const postf = filename.slice(index1 + 1); //获取文件的后缀名
- 		    // 传输的文件类型不符合要求
  		    if (file.size>=200*1024*1024) {//最大可传输200MB的文件
  		    	this.existflag=true;
  		    	this.errmsg='文件体积过大';//错误，提示信息
  		    } else {
  		    	if (this.uploadFiles.length === 0) {
- 		    		file.filetype=postf;
  		    		file.ok=false;
- 		    		file.onesize=this.computedSize(file.size);
  		    		this.uploadFiles.push(file);
  		    	} else {
  		    		if (this.uploadFiles.find(item => item.name === filename)) {//文件已存在
@@ -128,9 +122,7 @@
  		    				}
  		    			});
  		    		} else {
- 		    			file.filetype=postf;
  		    			file.ok=false;
- 		    			file.onesize=this.computedSize(file.size);
  		    			this.uploadFiles.unshift(file);
  		    			this.isCheckAll();
  		    		}
@@ -138,22 +130,6 @@
  		    }
  		    let size=(this.uploadFiles.reduce((prev,curr)=>prev+curr.size, 0));
  		    this.uploadFiles.allsize=this.computedSize(size);
- 		},
- 		computedSize(size){
- 			let count=0;
- 			while (size>1024) {
- 				size=size/1000;
- 				count++;
- 			}
- 			if (count==0) {
- 				return`${size}B`;
- 			}else if (count==1){
- 				return`${size.toFixed(2)}KB`;
- 			}else if (count==2) {
- 				return`${size.toFixed(2)}MB`;
- 			}else if (count==3) {
- 				return`${size.toFixed(2)}G`;
- 			}
  		},
  		buttonCheck(el) {//通过input-file按钮添加文件
  			if (el.target.files.length <= 0) {
@@ -264,6 +240,9 @@
 				}
 			}
 		},
+		download(){
+			// window.open("http://localhost/api/mysqlphp.php")
+		},
 		beforeEnter(el){
 			el.style.transform = "translate(-50%,-50%)";
 		},
@@ -334,11 +313,11 @@
 			font-size: 15px;display: inline-block;
 		}
 		div{
-			width: 45px;height: 45px;transform-origin: left;transform: scale(.5);
-			border-radius: 50%;border: 3px solid #CCC;position: relative;box-sizing: border-box;
+			width: 40px;height: 40px;transform-origin: 0% center;transform: scale(.5);
+			border-radius: 50%;border: 4px solid #CCC;position: relative;
 		}
 		div i{
-			display: inline-block;font-size: 32px;font-weight: 600;
+			display: inline-block;font-size: 30px;font-weight: 600;
 			position: absolute;left: 50%;top:50%;transform: translate(-50%,-50%);
 			text-align: center;box-sizing: border-box;color: white;
 		}
@@ -374,29 +353,25 @@
 		//     先把px/rem的值放大一遍，是所有属性的尺寸，然后用transform:scale(.5)缩小一倍，
 		//     就达到无论宽高设置多大的值，圆角都不会出现变形，残缺问题，最后用transform-origin位置，
 		//     也就是以原图形的哪一个轴形变
-		width: 45px;height: 45px;transform-origin: left;transform: translate(0,-50%) scale(.5);
-		position: relative;left: 0;top: 50%;
-		border: 3px solid #CCC;border-radius: 50%;box-sizing: border-box;
+		width: 40px;height: 40px;position: relative;left: 0;top: 50%;
+		border: 4px solid #CCC;border-radius: 50%;
+		transform-origin: 0% center;transform: translate(0,-50%) scale(.5);
 	}
 	div i{
-		display: inline-block;font-size: 32px;font-weight: 600;
+		display: inline-block;font-size: 30px;font-weight: 600;
 		position: absolute;left: 50%;top:50%;transform: translate(-50%,-50%);
 		text-align: center;box-sizing: border-box;color: white;
 	}
 }
 .fileone{
 	flex: 9;display: flex;flex-direction: column;justify-content: space-between;align-items: center;
-	h4{
-		width: 100%;flex:1;
-		span{
-			font-size: 16px;display: block;
-			position: relative;
-		}
+	p{
+		width: 100%;flex:1;font-size: 14px;position: relative;font-weight: normal;
 	}
 	.detailed{
 		width: 100%;flex:1;
 		display: flex;justify-content: space-between;align-items: center;
-		padding-right: 30px;box-sizing: border-box;font-size: 13px;
+		padding-right: 30px;box-sizing: border-box;font-size: 12px;
 		span:nth-child(1){
 			flex:5;
 		}

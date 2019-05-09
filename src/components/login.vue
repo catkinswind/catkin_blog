@@ -20,7 +20,10 @@
 						</label>
 						<a href="javascript:;" title="忘记密码？" @click='forget'>Forget password?</a>
 					</div>
-					<input id="login_pwd" type="password" v-model.trim="userPwd" @keyup.enter='submit'>
+					<div class="eye">
+						<input id="login_pwd" type="password" v-model.trim="userPwd" @keyup.enter='submit' ref='eye2'>
+						<i class="layui-icon layui-icon-password" @click='$_openeye($event,$refs.eye2)'></i>
+					</div>
 					<div class="blank"  v-if='!errflag'></div>
 					<div class="verify" v-if='errflag'>{{errmsg}}</div>
 					<input class="btn" type="button" name="" value="Login" @click="submit">
@@ -40,7 +43,6 @@
 </template>
 <script>
 	import {Toast} from 'mint-ui';
-	import logo from '../decorate/Logo.vue'
 	import {mapMutations} from 'vuex'
 	export default{
 		data(){
@@ -115,7 +117,7 @@
 			}
 		},
 		components:{
-			logo
+			logo:()=>import('../decorate/Logo.vue'),
 		}
 	};
 </script>
