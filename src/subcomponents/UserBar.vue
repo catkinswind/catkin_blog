@@ -9,16 +9,23 @@
 <script>
 import { mapGetters,mapMutations } from 'vuex'
 export default{
-	props:['height','fontsize','showname'],
+	props:{
+		height:{
+			type:String,
+			default:'',
+		},
+		fontsize:{
+			type:String,
+			default: '13px',
+		},
+		showname:{
+			type:Boolean,
+			default:true,
+		}
+	},
 	data(){
 		return{
         }
-	},
-	mounted(){
-		if (!this.showname) {
-			console.log(this.$refs.showname)
-			// this.$refs.showname.style.marginRight = '20px'
-		}
 	},
 	methods:{
 		...mapMutations(['setBackRoutePath']),
@@ -42,7 +49,7 @@ export default{
 		}
 	}
 	.username{
-		font-size: 13px;margin-left: 10px;padding-top: 5px;margin-right: 20px;
+		margin-left: 10px;padding-top: 5px;margin-right: 20px;
 	}
 
 }

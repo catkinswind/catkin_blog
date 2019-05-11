@@ -52,11 +52,12 @@
 				<span class="entry">Application guidelines</span>
 			</div>
 		</div>
-		<!-- <input type="button" name="" value="" style="width: 60px;height: 30px" @click=''> -->
 	</div>
 </template>
 <script>
-	import {Toast} from 'mint-ui';
+	import { Toast } from 'mint-ui';
+	// 发布到npm上的包因为被放在了node_modules中了，同时加载的原理会从内往外找node_modules加载需要的资源
+	import { Alert } from '../pulgin/plugin.js'; 
 	export default{
 		data(){
 			return{
@@ -70,7 +71,7 @@
 			succclassflag:false,
 			errclassflag:false,
 			emailList:['@qq.com','@163.com','@126.com','@sohu.com','@sina.com'],
-			show:{},
+			show:{},//保存Alert组件的返回值，返回一个close实例方法用于关闭组件
 		}
 	},
 	methods:{
@@ -101,7 +102,6 @@
 			}else {
 				this.$refs.email.style.display = 'none';
 			}
-	    	// setTimeout(this.cancelcontainer, 3000);
 	    },
 	    cheackemail(el){
 	    	this.userEmail=el.target.textContent;
@@ -142,16 +142,18 @@
 			let blank=this.userName!==''&&this.userEmail!==''&&this.userPwd!==''&&this.repuserPwd!=='';
 			if (flag&&blank) {
 				this.$refs.btn.removeAttribute('readonly');
-				if (this.show.showAlert) {
-					setTimeout(()=>{
-						this.show.close();
-					}, 3000)
-					return;
-				}
-				this.show=this.Alert({
+				// if (this.show.showAlert) {
+				// 	// setTimeout(()=>{
+				// 	// 	this.show.close();
+				// 	// }, 1000)
+				// 	return;
+				// }
+				this.show=Alert({
 					message:'No matter where people go and no matter how far they go,they will try their best to go home enjoying family time. And no matter what difficulty or trouble they are experiencing,they will put aside for the period of time. In every house,the main atmosphere is happiness. What do people usually do during the New Year time？',
 					resolve:'Accept',
-					reject:'Cancel'
+					reject:'Cancel',
+					position:'bottom',
+					className:'myalert'
 				},(result)=>{
 					if(result){
 						let form=new FormData();
@@ -166,7 +168,6 @@
 				            	this.registerflag='用户名已存在'
 				            	this.$_hight(el,'red');
 				            	this.errclassflag=true;
-				            	this.show.showAlert=false;
 				            }else {
 				            	let form=new FormData();
 				            	form.append('userName',this.userName);
@@ -182,31 +183,26 @@
 				                    	this.registerflag='注册成功'
 				                    	this.$_hight(el,'green');
 				                    	this.succclassflag=true;
-				                    	this.show.showAlert=false;
 				                    }
 				                    else {
 				                    	this.registerflag='注册失败!'
 				                    	this.$_hight(el,'red');
 				                    	this.errclassflag=true;
-				                    	this.show.showAlert=false;
 				                    }
 				                }).catch(err=>{
 				                	this.registerflag='注册失败，服务器错误，请稍后重试！'
 				                	this.$_hight(el,'red');
 				                	this.errclassflag=true;
-				                	this.show.showAlert=false;
 				                })
 				            }
 				        }).catch(err=>{
 				        	this.registerflag='注册失败，服务器错误，请稍后重试！'
 				            this.$_hight(el,'red');
 				            this.errclassflag=true;
-				            this.show.showAlert=false;
 				        })
 					}else {
 						this.registerflag='注册失败，没有接受协议！'
 				        this.errclassflag=true;
-				        this.show.showAlert=false;
 					}
 				});
 			}else {
@@ -225,9 +221,9 @@
     }
 };
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
 .content .btn{
 	background: #FFF;padding-left: 0;text-shadow: 0 2px 4px rgba(0,0,0,.25);font-weight: 600;
 }

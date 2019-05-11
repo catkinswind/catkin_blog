@@ -6,12 +6,8 @@ import { mapGetters,mapMutations } from 'vuex'
 // 过滤器
 import * as filters from './filters.js'
 
-// CSS Component
-import lightbar from './LightBar.vue'
-
 // JS Component
-import Alert from './alert/src/alert.js'
-import alert from './alert/src/alert.vue'
+export { default as Alert} from './alert/index.js'
 
 export default {
 	install(Vue, options) {
@@ -65,11 +61,9 @@ export default {
 						node.setAttribute('type', 'password')
 					}
 				},
-				Alert,
 				...filters,
 			},
 			mounted() {
-				// console.log(filters.dateFormat)
 			},
 			// 在页面离开时记录滚动位置
 			beforeRouteLeave(to, from, next) {
@@ -105,7 +99,8 @@ export default {
 				...mapGetters(['getTimer'])
 			},
 			components: {
-				lightbar,alert
+				// CSS Component
+				lightbar:()=>import('./LightBar.vue'),
 			}
 		})
 		Vue.prototype.extend = function(obj) {
@@ -133,6 +128,5 @@ export default {
 				console.log('自定义组件测试');
 			},
 		})
-
 	}
 }
