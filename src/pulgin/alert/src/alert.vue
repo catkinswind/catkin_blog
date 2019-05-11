@@ -3,7 +3,7 @@
 		<div class="alert" v-if="showAlert">
 			<div class="wrap">
 				<div class="text">
-					 {{message}}
+					{{message}}
 				</div>
 				<div class="inputbox">
 					<input type="button" :value="reject" @click='cancel'>
@@ -14,43 +14,43 @@
 	</transition>
 </template>
 <script>
-export default {
-	props:{
-		message:{
-			type:String,
-			default:'1111111111111',
+	export default {
+		props:{
+			message:{
+				type:String,
+				default:'1111111111111',
+			},
+			resolve:{
+				type:String,
+				default:'AAAA',
+			},
+			reject:{
+				type:String,
+				default:'CCCC',
+			},
+			showAlert:false,
 		},
-		resolve:{
-			type:String,
-			default:'AAAA',
+		data() {
+			return {
+				res:false,
+				rej:false,
+			};
 		},
-		reject:{
-			type:String,
-			default:'CCCC',
+		methods: {
+			sure() {
+				this.showAlert=false;
+				this.res=true;
+			},
+			cancel() {
+				this.showAlert=false;
+				this.rej=true;
+			},
 		},
-	},
-	data() {
-		return {
-			showAlert:true,
-			res:false,
-			rej:false,
-		};
-	},
-	methods: {
-		sure() {
-			this.showAlert = false;
-			this.res=true;
-		},
-		cancel() {
-			this.showAlert=false;
-			this.rej=true;
-		},
-	},
-};
+	};
 </script>
 <style lang='scss' scoped>
 .alert {
-	position: fixed;left: 50%;bottom: 5px;transform: translate(-50%, 0);
+	position: absolute;left: 50%;bottom: 0px;transform: translate(-50%, 0);
 	width: 90%;background:#FFF;border-radius: 5px;
 	box-shadow: 0 0 5px #CCC;
 }
@@ -72,16 +72,12 @@ export default {
 }
 .v-enter,
 .v-leave-to{
-	transform: translate(-50%, 120%)
+	transform: translate(-50%, 100%)
 }
-.v-enter-active{
+.v-enter-active,.v-leave-active{
 	transition: all 0.7s ease;
 }
-.v-leave-active{
-	transition: all 0.7s ease;
-	position: absolute;
-}
-.v-move{
-	transition: all 0.7s ease;
-}
+// .v-move{
+// 	transition: all 0.7s ease;
+// }
 </style>

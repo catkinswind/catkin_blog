@@ -52,6 +52,7 @@
 				<span class="entry">Application guidelines</span>
 			</div>
 		</div>
+		<!-- <input type="button" name="" value="" style="width: 60px;height: 30px" @click=''> -->
 	</div>
 </template>
 <script>
@@ -69,6 +70,7 @@
 			succclassflag:false,
 			errclassflag:false,
 			emailList:['@qq.com','@163.com','@126.com','@sohu.com','@sina.com'],
+			show:{},
 		}
 	},
 	methods:{
@@ -140,12 +142,18 @@
 			let blank=this.userName!==''&&this.userEmail!==''&&this.userPwd!==''&&this.repuserPwd!=='';
 			if (flag&&blank) {
 				this.$refs.btn.removeAttribute('readonly');
-				this.Alert({
+				if (this.show.showAlert) {
+					setTimeout(()=>{
+						this.show.close();
+					}, 3000)
+					return;
+				}
+				this.show=this.Alert({
 					message:'No matter where people go and no matter how far they go,they will try their best to go home enjoying family time. And no matter what difficulty or trouble they are experiencing,they will put aside for the period of time. In every house,the main atmosphere is happiness. What do people usually do during the New Year time？',
 					resolve:'Accept',
 					reject:'Cancel'
 				},(result)=>{
-					if(result.res){
+					if(result){
 						let form=new FormData();
 				        form.append('userName',this.userName);
 				        let config={
@@ -158,6 +166,7 @@
 				            	this.registerflag='用户名已存在'
 				            	this.$_hight(el,'red');
 				            	this.errclassflag=true;
+				            	this.show.showAlert=false;
 				            }else {
 				            	let form=new FormData();
 				            	form.append('userName',this.userName);
@@ -173,26 +182,31 @@
 				                    	this.registerflag='注册成功'
 				                    	this.$_hight(el,'green');
 				                    	this.succclassflag=true;
+				                    	this.show.showAlert=false;
 				                    }
 				                    else {
 				                    	this.registerflag='注册失败!'
 				                    	this.$_hight(el,'red');
 				                    	this.errclassflag=true;
+				                    	this.show.showAlert=false;
 				                    }
 				                }).catch(err=>{
 				                	this.registerflag='注册失败，服务器错误，请稍后重试！'
 				                	this.$_hight(el,'red');
 				                	this.errclassflag=true;
+				                	this.show.showAlert=false;
 				                })
 				            }
 				        }).catch(err=>{
 				        	this.registerflag='注册失败，服务器错误，请稍后重试！'
 				            this.$_hight(el,'red');
 				            this.errclassflag=true;
+				            this.show.showAlert=false;
 				        })
 					}else {
 						this.registerflag='注册失败，没有接受协议！'
 				        this.errclassflag=true;
+				        this.show.showAlert=false;
 					}
 				});
 			}else {

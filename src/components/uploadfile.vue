@@ -250,7 +250,7 @@
 			el.offsetWidth;
 			el.style.transform = "translate(-50%,-100%)";
 			el.style.transition = 'all 0.8s ease';
-			setTimeout(function(){done()}, 800);
+			setTimeout(()=>{done()}, 800);
 		},
 		afterEnter(el){
 			this.existflag=!this.existflag;

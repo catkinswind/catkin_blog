@@ -11,6 +11,7 @@ import lightbar from './LightBar.vue'
 
 // JS Component
 import Alert from './alert/src/alert.js'
+import alert from './alert/src/alert.vue'
 
 export default {
 	install(Vue, options) {
@@ -104,7 +105,7 @@ export default {
 				...mapGetters(['getTimer'])
 			},
 			components: {
-				lightbar
+				lightbar,alert
 			}
 		})
 		Vue.prototype.extend = function(obj) {

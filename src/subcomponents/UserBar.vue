@@ -1,18 +1,24 @@
 <template>
-	<div class="head">
+	<div class="head" :class="[{'no':!showname}]">
 		<div class="usericon" :style="[{height:height,width:height}]" @click="info">
 			<img src="../assets/timg.jpg" :title="loginName">
 		</div>	
-		<h2 class="username" :style="[{fontSize:fontsize}]">{{loginName}}</h2>
+		<h2 class="username" :style="[{fontSize:fontsize}]" v-if="showname" >{{loginName}}</h2>
 	</div>
 </template>
 <script>
 import { mapGetters,mapMutations } from 'vuex'
 export default{
-	props:['height','fontsize'],
+	props:['height','fontsize','showname'],
 	data(){
 		return{
         }
+	},
+	mounted(){
+		if (!this.showname) {
+			console.log(this.$refs.showname)
+			// this.$refs.showname.style.marginRight = '20px'
+		}
 	},
 	methods:{
 		...mapMutations(['setBackRoutePath']),
@@ -28,7 +34,7 @@ export default{
 </script>
 <style lang="scss" scoped>
 .head{
-	display: flex;justify-content: flex-start;
+	display: flex;justify-content: space-between;
 	.usericon{
 		height: 100%;border-radius: 50%;overflow: hidden;
 		img{
@@ -40,5 +46,7 @@ export default{
 	}
 
 }
-	
+.no	{
+	margin-right: 10px;
+}
 </style>

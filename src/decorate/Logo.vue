@@ -17,7 +17,7 @@ export default{
 </script>
 <style lang="scss" scoped>
 .header{
-	width: 80%;margin: 0 auto;padding: 5px 0;
+	width: 80%;margin: 0 auto;padding: 5px 0;position: relative;
 	h1{
 		height:100%;margin: 0 auto;text-align: center;
 		img{

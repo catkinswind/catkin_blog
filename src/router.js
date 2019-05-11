@@ -1,18 +1,14 @@
 import VueRouter from 'vue-router'
 
-const Login = () =>
-	import ('./components/Login.vue');
-const Home = () =>
-	import ('./components/Home.vue');
-const Register = () =>
-	import ('./components/Register.vue');
-const Forget = () =>
-	import ('./components/Forget.vue');
-const PersonInfo = () =>
-	import ('./subcomponents/PersonInfo.vue');
+import Login from './components/Login.vue';
+import Home from './components/Home.vue';
+import Register from './components/Register.vue';
+import Forget from './components/Forget.vue';
+import PersonInfo from './subcomponents/PersonInfo.vue';
+import UpLoadFile from './components/UpLoadFile.vue';
 
 const router = new VueRouter({
-	mode: 'history',
+	// mode: 'history',
 	routes: [{
 		path: '/',
 		redirect: 'home',
@@ -29,11 +25,11 @@ const router = new VueRouter({
 			keepAlive: true,
 		},
 		children: [{
-			path:'uploadfile',
-			component:()=>import('./components/UpLoadFile.vue'),
-			name:'uploadfile',
+			path: 'uploadfile',
+			component: UpLoadFile,
+			name: 'uploadfile',
 			meta: {
-				title: '',
+				title: 'My First Project',
 				keepAlive: true,
 			},
 		}]

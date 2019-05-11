@@ -6,18 +6,36 @@
 				<h2>个人信息</h2>
 			</div>
 		</div>
-		<div class="head">
-			<div class="content90">
+		<!-- <div class="head">
+			<div class="content90 iconhead">
 				<userbar height="55px" fontsize="15px"></userbar>
 			</div>
-		</div>
+		</div> -->
 		<div class="content" >
 			<div v-for="item in list">
-				<div class="line"></div>
-				<div class="more content90">
+				<div class="more content95">
 					<p>{{item}}</p>
 					<i class="layui-icon layui-icon-right"></i>  
 				</div>
+				<div class="line"></div>
+			</div>
+		</div>
+		<div class="content" >
+			<div v-for="item in list2">
+				<div class="more content95">
+					<p>{{item}}</p>
+					<i class="layui-icon layui-icon-right"></i>  
+				</div>
+				<div class="line"></div>
+			</div>
+		</div>
+		<div class="content" >
+			<div v-for="item in list3">
+				<div class="more content95">
+					<p>{{item}}</p>
+					<i class="layui-icon layui-icon-right"></i>  
+				</div>
+				<div class="line"></div>
 			</div>
 		</div>
 		<div class="switch" @click="change">
@@ -26,28 +44,6 @@
 		<div class="exit" @click="exit">
 			<p>退出登录</p>
 		</div>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
-		<h1>11111111111111</h1>
 	</div>
 </template>
 <script>
@@ -56,7 +52,9 @@ import userbar from './UserBar.vue'
 export default{
 	data(){
 		return{
-		     list:['个人主页','完善信息','通用设置','功能反馈','关于我们','加入我们','1.2.0']
+		    list:['账号管理','安全隐私','用户手册'],
+		    list2:['通用设置','消息设置','插件','下载路径'],
+		    list3:['意见反馈','关于我们','联系我们','帮助']
         }
 	},
 	created(){
@@ -97,31 +95,31 @@ export default{
 	}
 }
 .infoset{
-	position: relative;
+	position: relative;top:15px;margin-bottom: 30px;
 	i{
-		font-size: 21px; color: #000;line-height: 30px;font-weight: 600;
+		font-size: 17px; color: #000;line-height: 40px;font-weight: 600;
 	}
 	h2{
 		position: absolute;left:50%;top:0;transform: translateX(-50%);
-		font-size: 19px;line-height: 30px;font-weight: 500
+		font-size: 15px;line-height: 40px;font-weight: 500
 	}
 }
 .head{
 	padding: 20px 0;
-	
 }
 p{
-	line-height: 50px;font-size: 15px;
+	line-height: 40px;font-size: 14px;
 }
 .content{
+	margin-top: 20px;
 	.more{
 		display: flex;justify-content: space-between;
 		i{
-			line-height: 50px;display: block;height: 100%;width: 20px
+			line-height: 40px;display: block;height: 100%;width: 20px;color: #A3A3A3;
 		}
 	}
 	.line{
-		width: 100%;height: 1px;background: #CCC;transform: scaleY(0.6)
+		position: relative;width: 100%;height: 1px;background: #CCC;transform: scaleY(0.3)
 	}
 }
 
@@ -130,19 +128,19 @@ p{
 	p{
 		text-align: center;
 	}
+	p:active{
+		background: rgba(204,204,204,0.4);
+	}
 }
 .exit{
-	margin-top: 20px;
+	margin-top: 5px;
 	p{
 		text-align: center;
-		background: linear-gradient(to bottom right,#CC0D17,#E51C2F)
-		;
-		// E51C2F
+		background: linear-gradient(to bottom right,#CC0D17,#E51C2F);
 		color: #FFF
 	}
 	p:active{
 		opacity: 0.5
 	}
-	
 }
 </style>
