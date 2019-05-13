@@ -25,6 +25,7 @@ import 'layui-src/dist/css/layui.css'
 import 'layui-src/dist/css/layui.mobile.css'
 
 // 导入自己的全局样式
+import './assets/css/global.scss';
 import './assets/css/loginAndRegister.scss';
 import './assets/css/clearMarginAndPadding.css'
 import 'lib-flexible/flexible.js'

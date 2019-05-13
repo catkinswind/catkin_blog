@@ -41,7 +41,7 @@
 					</div>
 					<div class="blank"  v-if='!errflag'></div>
 					<div class="verify" v-if='errflag'>{{errmsg}}</div>
-					<input class="btn" type="button" name="" value="Register" @click="register" ref="btn">
+					<input class="btn" type="button" name="" value="Register" @click.stop="register" ref="btn">
 					<div :class="['verify','tranpar',{'succclass':succclassflag},{'errclass':errclassflag}]" >{{registerflag}}</div>
 				</form>
 				<div class="spancontainer">

@@ -7,14 +7,12 @@ const alertDom = () => new Alertconstructor({
 })
 
 Alertconstructor.prototype.close = () => {
-	document.body.removeChild(document.getElementsByClassName('alert')[0]);
-	// const instance = alertDom();
-	// console.log(instance.$el)
+	document.body.removeChild(document.getElementById('alertComponent'));
 };
 
-let Alert = (options = {}, callback) => {
+const Alert = (options = {}, callback) => {
 	const instance = alertDom();
-	if (!document.getElementsByClassName('alert')[0]) {
+	if (!document.getElementById('alertComponent')) {
 		// 组件的显示状态默认是false，给它true，让它可以进入过渡动画
 		instance.showAlert = true; 
 		for (let [key, value] of Object.entries(options)) {

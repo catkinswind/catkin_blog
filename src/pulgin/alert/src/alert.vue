@@ -1,13 +1,13 @@
 <template>
 	<transition :name='position'>
-		<div :class="['alert',appear?'top':'bottom',className]" v-if="showAlert">
+		<div :class="['alert',appear?'top':'bottom',className]" v-if="showAlert"  id="alertComponent">
 			<div class="wrap">
 				<div class="text">
 					{{message}}
 				</div>
 				<div class="inputbox">
-					<input type="button" :value="reject" @click='cancel'>
-					<input type="button" :value="resolve" @click='sure'>
+					<input type="button" :value="reject" @click.stop='cancel'>
+					<input type="button" :value="resolve" @click.stop='sure'>
 				</div>
 			</div>
 		</div>
@@ -18,7 +18,7 @@
 		props:{
 			message:{
 				type:String,
-				default:'1111111111111',
+				default:'Alert message!',
 			},
 			resolve:{
 				type:String,
@@ -39,6 +39,18 @@
 			className:{
 				type:String,
 				default:'',
+			}
+		},
+		mounted(){ //mounted只会在dom元素绑定到页面上时执行，此时this.showAlert=false
+		// 必须是updated，因为要根据是否点击了其他位置来确定关闭窗口渲染动画
+			const _this=this;
+			if (this.showAlert) {
+				this.$el.addEventListener('click',()=>{
+					_this.showAlert=true;
+				})
+				document.addEventListener('click',()=>{
+					_this.showAlert=false;
+				})
 			}
 		},
 		data() {
@@ -65,7 +77,7 @@
 					return false;
 				}
 			}
-		}
+		},
 	};
 </script>
 <style lang='scss' scoped>
@@ -83,7 +95,7 @@
 .wrap {
 	font-size: 13px;letter-spacing: 1px;padding: 10px;
 	.text{
-		min-height: 40px;text-indent: 2em;line-height: 18px;word-break: break-all;
+		text-indent: 2em;line-height: 18px;word-break: break-all;
 	}
 	.inputbox{
 		margin-top: 5px;display: flex;justify-content: flex-end;

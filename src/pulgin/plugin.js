@@ -1,19 +1,20 @@
 import moment from 'moment';
 
 // vuex保存状态
-import { mapGetters,mapMutations } from 'vuex'
+// import { mapGetters,mapMutations } from 'vuex'
 
 // 过滤器
 import * as filters from './filters.js'
 
 // JS Component
 export { default as Alert} from './alert/index.js'
+export { default as Prompt} from './prompt/index.js'
 
 export default {
 	install(Vue, options) {
 		Vue.mixin({
 			methods: {
-				...mapMutations(['setTimer']),
+				// ...mapMutations(['setTimer']),
 				pwd() {
 					const el = this.$refs.pwd
 					if (this.userPwd !== '') {
@@ -49,11 +50,8 @@ export default {
 						return Math.floor(date3 / 60 / 24 / 365);
 					}
 				},
-				$_openeye(el, node) {
-					if (!el.target.style.color) {
-						el.target.style.color = 'rgb(204, 204, 204)';
-					}
-					if (el.target.style.color === 'rgb(204, 204, 204)') {
+				$_openeye(el, node) {// 取样式不能直接使用el.target.style.color，这样获取不到
+					if (getComputedStyle(el.target, false)['color'] === 'rgb(204, 204, 204)') {
 						el.target.style.color = '#1F8ACC';
 						node.setAttribute('type', 'text')
 					} else {
@@ -74,14 +72,14 @@ export default {
 			//进入该页面时，用之前保存的滚动位置赋值
 			beforeRouteEnter(to, from, next) {
 				next(vm => {
-				    clearInterval(vm.getTimer); // 在路由跳转到指定页面前清除之前的滚动document.title
-					let title = document.title + ' ';
-					let Timer = setInterval(function() {
-						title = title.match(/\w+\s/g);
-						title = [...title.slice(1), ...title.slice(0, 1)]
-						title = document.title = title.join('');
-					}, 1000);
-					vm.setTimer(Timer); // 将当前页面得document.title的定时器状态保存到vuex中
+				 //    clearInterval(vm.getTimer); // 在路由跳转到指定页面前清除之前的滚动document.title
+					// let title = document.title + ' ';
+					// let Timer = setInterval(function() {
+					// 	title = title.match(/\w+\s/g);
+					// 	title = [...title.slice(1), ...title.slice(0, 1)]
+					// 	title = document.title = title.join('');
+					// }, 1000);
+					// vm.setTimer(Timer); // 将当前页面得document.title的定时器状态保存到vuex中
 					document.querySelector('#app').scrollTop = vm.scrollTop
 				})
 			},
@@ -96,7 +94,7 @@ export default {
 				},
 			},
 			computed: {
-				...mapGetters(['getTimer'])
+				// ...mapGetters(['getTimer'])
 			},
 			components: {
 				// CSS Component

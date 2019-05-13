@@ -38,7 +38,7 @@
 					<router-view v-if="$route.meta.keepAlive"></router-view>
 				</keep-alive>
 				<router-view v-if="!$route.meta.keepAlive"></router-view>	
-				<!-- <input type="button" name="" value="" style="width:60px;height:30px" @click='ok=!ok'> -->
+				<input type="button" name="" value="" style="width:60px;height:30px" @mouseenter ='prompt'>
 				<div>
 					<h1>111111111111</h1>
 					<h1>111111111111</h1>
@@ -125,6 +125,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import { Prompt } from '../pulgin/plugin.js'; 
 export default{
 	name:'home',
 	data(){
@@ -154,6 +155,15 @@ export default{
 				el.style.display = 'block';
 			}
 		},
+		prompt(el){
+			const result=Prompt({
+				el:el.target,
+				message:'sncbainvianvian',
+			})
+			el.target.onmouseout=()=>{
+				result.close();
+			}
+		}
 	},
 	components:{
 		logo:()=>import('../decorate/Logo.vue'),
