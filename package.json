@@ -1,63 +1,64 @@
 {
-  "name": "app",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "axios": "^0.18.0",
-    "core-js": "^2.6.5",
-    "layui-src": "^2.4.5",
-    "lib-flexible": "^0.3.2",
-    "mint-ui": "^2.2.13",
-    "moment": "^2.24.0",
-    "vue": "^2.6.6",
-    "vue-axios": "^2.1.4",
-    "vue-router": "^3.0.6",
-    "vuex": "^3.1.0",
-    "vuex-along": "^1.2.5"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.5.0",
-    "@vue/cli-plugin-eslint": "^3.5.0",
-    "@vue/cli-service": "^3.5.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "node-sass": "^4.12.0",
-    "postcss-loader": "^3.0.0",
-    "postcss-px2rem": "^0.3.0",
-    "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.21"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
+    "name": "app",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint"
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {
-      "indent_size": 4
+    "dependencies": {
+        "axios": "^0.18.0",
+        "bootstrap": "^3.4.1",
+        "core-js": "^2.6.5",
+        "jquery": "^3.4.1",
+        "lib-flexible": "^0.3.2",
+        "mint-ui": "^2.2.13",
+        "moment": "^2.24.0",
+        "vue": "^2.6.6",
+        "vue-axios": "^2.1.4",
+        "vue-router": "^3.0.6",
+        "vuex": "^3.1.0",
+        "vuex-along": "^1.2.5"
     },
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 5 versions",
-    "Android >=4.0",
-    "not ie <= 8"
-  ]
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^3.5.0",
+        "@vue/cli-plugin-eslint": "^3.5.0",
+        "@vue/cli-service": "^3.5.0",
+        "babel-eslint": "^10.0.1",
+        "eslint": "^5.8.0",
+        "eslint-plugin-vue": "^5.2.2",
+        "node-sass": "^4.12.0",
+        "postcss-loader": "^3.0.0",
+        "postcss-px2rem": "^0.3.0",
+        "sass-loader": "^7.1.0",
+        "vue-template-compiler": "^2.5.21"
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "eslint:recommended"
+        ],
+        "rules": {
+            "indent_size": 4
+        },
+        "parserOptions": {
+            "parser": "babel-eslint"
+        }
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 5 versions",
+        "Android >=4.0",
+        "not ie <= 8"
+    ]
 }

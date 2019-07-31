@@ -1,6 +1,6 @@
 <template>
     <div>
-        <logo style="height: 70px"></logo>
+        <logo height="60px"></logo>
         <div class="box">
             <div class="content">
                 <div class="title">Sign up</div>
@@ -46,10 +46,10 @@
                             @change="pwd($refs.pwd)"
                             ref="pwd"
                         />
-                        <i
-                            class="layui-icon layui-icon-password"
+                        <span
+                            class="glyphicon glyphicon-eye-close"
                             @click="$_openeye($event, $refs.pwd)"
-                        ></i>
+                        ></span>
                     </div>
                     <div class="forgetline">
                         <label for="register_pwd_repeeat">
@@ -66,10 +66,10 @@
                             @keyup.enter="register"
                             ref="eye"
                         />
-                        <i
-                            class="layui-icon layui-icon-password"
-                            @click="$_openeye($event, $refs.eye)"
-                        ></i>
+                        <span
+                            class="glyphicon glyphicon-eye-close"
+                            @click="$_openeye($event, $refs.pwd)"
+                        ></span>
                     </div>
                     <div class="blank" v-if="!errflag"></div>
                     <div class="verify" v-if="errflag">{{ errmsg }}</div>
@@ -259,8 +259,9 @@ export default {
     components: {
         logo: () => import('../decorate/Logo.vue')
     },
+    // mounted () {
     updated () {
-        let el = this.$refs.email
+        const el = this.$refs.email
         document.addEventListener('click', function () {
             el.style.display = 'none'
         })

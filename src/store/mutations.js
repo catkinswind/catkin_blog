@@ -13,15 +13,15 @@
 import * as types from './mutation-types.js';
 
 const mutations = {
-  [types.loginUserName](state, name) {
-    state.userName = name;
-  },
-  [types.setTimer](state, Timer) {
-    state.Timer = Timer;
-  },
-  [types.setBackRoutePath](state, backRoutePath) {
-    state.backRoutePath = backRoutePath;
-  }
+    [types.loginUserName](state, name) {
+        state.userName = name;
+    },
+    [types.setTimer](state, Timer) {
+        state.Timer = Timer;
+    },
+    [types.setBackRoutePath](state, backRoutePath) {
+        state.backRoutePath = backRoutePath;
+    }
 };
 // 任何由"loginUserName"导致的状态变更都应该在 this.$store.commit('loginUserName') 时完成
 export default mutations;

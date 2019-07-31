@@ -22,7 +22,7 @@ export default{
 </script>
 <style lang="scss" scoped>
 input{
-	letter-spacing: 1px;font-size: 12px;font-weight: 500;background: #FFF;
+	letter-spacing: 1px;font-size: 11px;font-weight: 500;background: #FFF;
 }
 input:active{
 	outline: 0;background: rgba(204,204,204,0.4);border-color: #1F8ACC;

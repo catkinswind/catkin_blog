@@ -141,7 +141,8 @@ export default {
                 console.log(item);
                 this.addFiles(item);//添加的单个文件对象
             })
-            el.target.value = '';
+            el.target.value = '';//不能使用click事件，点击上传按钮的作用是从文件选择器中选择要上传的数据，但是当点击的按钮的那一刻，就
+            // 立即触发方法，文件还没有选择到。此外，还要清除file按钮的值，不然value的值一直会是第一次添加的对象
         },
         upLoad () {
             if (this.uploadFiles.length <= 0) {
