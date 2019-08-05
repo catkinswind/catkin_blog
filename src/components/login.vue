@@ -122,7 +122,7 @@ export default {
             this.$router.push({
                 name: 'forget',
                 params: {
-                    name: this.userName || ' '
+                    name: this.userName || ''
                 }
             })
         }

@@ -6,16 +6,17 @@
             @input="input"
             @click.stop="expandWidth"
             v-model.trim="value"
-            ref="value"
             @keyup.enter="search"
         />
         <div class="delete_search">
-            <span
-                class="glyphicon glyphicon-remove-circle"
-                aria-hidden="true"
-                v-if="flag"
-                @click="del"
-            ></span>
+            <transition>
+                <span
+                    class="glyphicon glyphicon-remove-circle"
+                    aria-hidden="true"
+                    v-show="flag"
+                    @click="del"
+                ></span>
+            </transition>
             <span
                 class="glyphicon glyphicon-search"
                 aria-hidden="true"
@@ -26,20 +27,18 @@
     </div>
 </template>
 <script>
+import { setTimeout } from 'timers';
 export default {
-    mounted () {
-        if (this.el.style.width > 300) {
-            document.addEventListener('click', () => {
-                this.$_startMove(this.el, { 'width': 300 }, function () { })
-            });
-        }
-    },
     updated () {
+        //组件更新是指data中的数据发生变化或焦点离开该组件
+        console.log("组件更新了");
         if (this.value === "") {
-            this.$_startMove(this.el, { 'width': 300 }, function () { })
+            //焦点离开组件是text为""，那么长度肯定大于300px了
+            setTimeout(() => {
+                this.$_startMove(this.el, { 'width': 300 }, () => { })
+            }, 200)
         } else {
-            this.$_startMove(this.el, { 'width': 500 }, function () { })
-
+            this.$_startMove(this.el, { 'width': 450 }, () => { })
         }
     },
     data () {
@@ -51,7 +50,7 @@ export default {
     },
     methods: {
         input () {
-            if (this.value == "") {
+            if (this.value === "") {
                 this.flag = false
             } else {
                 this.flag = true
@@ -62,7 +61,7 @@ export default {
             this.value = ""
         },
         expandWidth () {
-            this.$_startMove(this.el, { 'width': 500 }, function () { })
+            this.$_startMove(this.el, { 'width': 450 }, () => { })
         },
         search () {
             if (this.value !== "") {
@@ -73,7 +72,7 @@ export default {
     },
     computed: {//this指向vue，所以不能使用箭头函数，因为外部的this是undefined
         el () {
-            return this.$refs.value.parentNode.parentNode;//searchconatiner
+            return this.$el.parentNode;//searchconatiner
         }
     }
 };
@@ -107,10 +106,11 @@ export default {
     right: 10px;
     width: 100px;
     height: 100%;
-    padding: 0 15px 0 15px;
+    padding: 0 15px 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
 }
 
 .searchbox span {
@@ -119,5 +119,13 @@ export default {
 
 .searchbox span:nth-of-type(2):active {
     font-size: 22px;
+}
+.v-enter,
+.v-leave-to {
+    transform: translateX(-60px);
+}
+.v-enter-active,
+.v-leave-active {
+    transition: all 0.8s ease;
 }
 </style>

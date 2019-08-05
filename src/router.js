@@ -18,7 +18,7 @@ const router = new VueRouter({
         path: '/',
         redirect: 'home',
         meta: {
-            title: 'My First Project',
+            title: 'catkin | welcome to my project',
             keepAlive: true,
         }
     }, {
@@ -26,7 +26,7 @@ const router = new VueRouter({
         component: Home,
         name: 'home',
         meta: {
-            title: 'My First Project',
+            title: 'catkin | welcome to my project',
             keepAlive: true,
         },
         children: [{

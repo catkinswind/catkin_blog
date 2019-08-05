@@ -1,7 +1,7 @@
 <template>
-    <div class="header" :style="[{height:height}]">
+    <div class="header" :style="[{height:height}]" @click="goHome">
         <h1>
-            <img src="../assets/logo.png" title="myProject" />
+            <img src="../assets/logo.png" v-prompt prompt="CATKIN" />
         </h1>
     </div>
 </template>
@@ -13,6 +13,11 @@ export default {
             default: '45px',
         }
     },
+    methods: {
+        goHome () {
+            this.$router.push({ name: 'home' })
+        }
+    }
 };
 </script>
 <style lang="scss" scoped>

@@ -120,7 +120,6 @@ export default {
             succclassflag: false,
             errclassflag: false,
             emailList: ['@qq.com', '@163.com', '@126.com', '@sohu.com', '@sina.com'],
-            show: {} //保存Alert组件的返回值，返回一个close实例方法用于关闭组件
         }
     },
     methods: {
@@ -196,7 +195,7 @@ export default {
                 // 	// }, 1000)
                 // 	return;
                 // }
-                this.show = Alert({
+                const reslut = Alert({
                     message:
                         'No matter where people go and no matter how far they go,they will try their best to go home enjoying family time. And no matter what difficulty or trouble they are experiencing,they will put aside for the period of time. In every house,the main atmosphere is happiness. What do people usually do during the New Year time？',
                     resolve: 'Accept',
@@ -248,7 +247,7 @@ export default {
                         })
                     } else {
                         this.registerflag = '注册失败，没有接受协议！'
-                        this.errclassflag = true
+                        this.errclassflag = true;
                     }
                 })
             } else {

@@ -9,17 +9,14 @@ const instance = new promptConstructor({
 promptConstructor.prototype.close = () => {
     document.body.removeChild(document.getElementById('promptContainer'));
 };
+promptConstructor.prototype.exist = () => document.getElementById('promptContainer') !== null;
 
 const Prompt = (options = {}) => {
-    if (!document.getElementById('promptContainer')) {
-        for (let [key, value] of Object.entries(options)) {
-            instance[key] = options[key];
-        }
-        document.body.appendChild(instance.$el);
+    for (let [key, value] of Object.entries(options)) {
+        instance[key] = options[key];
     }
-    return {
-        close: instance.close
-    }
+    document.body.appendChild(instance.$el);
+    return instance;
 }
 
 export default Prompt;

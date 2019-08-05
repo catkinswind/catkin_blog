@@ -49,9 +49,9 @@ export default {
         const _this = this;
         document.documentElement.style.overflowY = "hidden"; //组件出现时html元素隐藏滚动条
         if (this.showAlert) {//组件已存在，点击组件不会消失，点击其他地方隐藏组件
-            console.log(this.$el);
             this.$el.addEventListener('click', () => {
                 _this.showAlert = true;
+                window.event ? window.event.cancelBubble = true : e.stopPropagation();
             })
             document.addEventListener('click', () => {
                 _this.showAlert = false;
@@ -60,8 +60,8 @@ export default {
     },
     data () {
         return {
-            res: false,
-            rej: false,
+            res: null,
+            rej: null,
         };
     },
     methods: {
@@ -71,7 +71,7 @@ export default {
         },
         cancel () {
             this.showAlert = false;
-            this.rej = true;
+            this.rej = false;
         },
     },
     computed: {

@@ -88,7 +88,7 @@ export default {
             e.preventDefault(); //取消默认浏览器拖拽效果 
             var fileList = e.dataTransfer.files; //获取文件对象 
             if (fileList.length == 0) { //检测是否是拖拽文件到页面的操作 
-                return false;
+                return false;///---------------------------------------
             }
             [...e.dataTransfer.files].forEach(item => {//同时添加多个文件
                 this.addFiles(item);//添加的单个文件对象
@@ -277,639 +277,212 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-/*手机*/
-@media screen and (max-width: 600px) {
-    .dropbox {
+.uploadfileContainer {
+    width: 70%;
+    margin: 0 auto;
+}
+.dropbox {
+    position: relative;
+    background: skyblue;
+    display: flex;
+    justify-content: center;
+    padding: 3% 2%;
+    box-sizing: border-box;
+    div {
+        width: 120px;
+        height: 75px;
+        background: white;
+        box-sizing: border-box;
+        font-size: 13px;
+    }
+    i {
+        font-size: 35px;
+        color: #4a9bf9;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .load {
         position: relative;
-        background: skyblue;
+        width: 25%;
+        height: 0;
+        padding-bottom: 25%;
+        border-radius: 5px;
+        margin-right: 20px;
+        .loadinputfile {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .open {
+        position: relative;
+        width: 25%;
+        height: 0;
+        padding-bottom: 25%;
+        border-radius: 5px;
+        i {
+            color: purple;
+            font-size: 25px;
+            font-weight: bold;
+        }
+    }
+    .exist {
+        position: absolute;
+        left: 50%;
+        bottom: -20%;
+        text-align: center;
+        line-height: 35px;
+        width: 20%;
+        background: linear-gradient(0.31deg, #3cac8a 0.7%, #5cceac 99.3%);
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+        font-size: 15px;
+        color: white;
+        border-radius: 5px;
+    }
+}
+.checkallbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px 0 12px;
+    box-sizing: border-box;
+    background-color: #fff;
+    .checkall {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 45px;
+        span {
+            font-size: 15px;
+            display: inline-block;
+        }
+        div {
+            width: 38px;
+            height: 38px;
+            transform-origin: 0% center;
+            transform: scale(0.5);
+            border-radius: 50%;
+            border: 3px solid #ccc;
+            position: relative;
+        }
+        div i {
+            display: inline-block;
+            font-size: 25px;
+            font-weight: 600;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            box-sizing: border-box;
+            color: white;
+        }
+    }
+    .upload {
+        width: 60px;
+        height: 30px;
+        border-radius: 5px;
+        font-size: 13px;
+        border: 2px solid #4a9bf9;
+        background: white;
+    }
+    .upload:active {
+        border: none;
+        color: #fff;
+        background-color: skyblue;
+    }
+}
+.hightlight {
+    .filetitle {
+        height: 35px;
+        line-height: 35px;
+        padding-left: 10px;
+        display: flex;
+        justify-content: space-between;
+        span {
+            display: block;
+            flex: 1;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+    }
+}
+.hightlight .catalogue {
+    .flexbox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 12px;
+    }
+}
+.ischeck {
+    flex: 1;
+    position: relative;
+    div {
+        // 解决安卓手机渲染圆形圆角变形：
+        //     先把px/rem的值放大一遍，是所有属性的尺寸，然后用transform:scale(.5)缩小一倍，
+        //     就达到无论宽高设置多大的值，圆角都不会出现变形，残缺问题，最后用transform-origin位置，
+        //     也就是以原图形的哪一个轴形变
+        width: 38px;
+        height: 38px;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        border: 3px solid #ccc;
+        border-radius: 50%;
+        transform-origin: 0% center;
+        transform: translate(0, -50%) scale(0.5);
+    }
+    div i {
+        display: inline-block;
+        font-size: 25px;
+        font-weight: 600;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        box-sizing: border-box;
+        color: white;
+    }
+}
+.fileone {
+    flex: 9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    p {
         width: 100%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        padding: 3% 2%;
-        box-sizing: border-box;
-        div {
-            width: 120px;
-            height: 75px;
-            background: white;
-            box-sizing: border-box;
-            font-size: 13px;
-        }
-        i {
-            font-size: 35px;
-            color: #4a9bf9;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .load {
-            position: relative;
-            width: 49%;
-            height: 0;
-            padding-bottom: 49%;
-            border-radius: 5px;
-            .loadinputfile {
-                position: absolute;
-                left: 0;
-                top: 0;
-                opacity: 0;
-                width: 100%;
-                height: 100%;
-            }
-        }
-        .open {
-            position: relative;
-            width: 49%;
-            height: 0;
-            padding-bottom: 49%;
-            border-radius: 5px;
-            i {
-                color: purple;
-                font-size: 25px;
-                font-weight: bold;
-            }
-        }
-        .exist {
-            position: absolute;
-            left: 50%;
-            bottom: -20%;
-            text-align: center;
-            line-height: 35px;
-            width: 20%;
-            background: linear-gradient(0.31deg, #3cac8a 0.7%, #5cceac 99.3%);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-            font-size: 15px;
-            color: white;
-            border-radius: 5px;
-        }
-    }
-    .checkallbox {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 30px 0 12px;
-        box-sizing: border-box;
-        background-color: #fff;
-        .checkall {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 45px;
-            span {
-                font-size: 15px;
-                display: inline-block;
-            }
-            div {
-                width: 38px;
-                height: 38px;
-                transform-origin: 0% center;
-                transform: scale(0.5);
-                border-radius: 50%;
-                border: 3px solid #ccc;
-                position: relative;
-            }
-            div i {
-                display: inline-block;
-                font-size: 25px;
-                font-weight: 600;
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                text-align: center;
-                box-sizing: border-box;
-                color: white;
-            }
-        }
-        .upload {
-            width: 60px;
-            height: 30px;
-            border-radius: 5px;
-            font-size: 13px;
-            border: 2px solid #4a9bf9;
-            background: white;
-        }
-        .upload:active {
-            border: none;
-            color: #fff;
-            background-color: skyblue;
-            // #01ACC1
-        }
-    }
-    .hightlight {
-        .filetitle {
-            height: 35px;
-            line-height: 35px;
-            padding-left: 10px;
-            display: flex;
-            justify-content: space-between;
-            span {
-                display: block;
-                flex: 1;
-                font-size: 13px;
-                box-sizing: border-box;
-            }
-        }
-    }
-    .hightlight .catalogue {
-        .flexbox {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-left: 12px;
-        }
-    }
-    .ischeck {
         flex: 1;
+        font-size: 15px;
         position: relative;
-        div {
-            // 解决安卓手机渲染圆形圆角变形：
-            //     先把px/rem的值放大一遍，是所有属性的尺寸，然后用transform:scale(.5)缩小一倍，
-            //     就达到无论宽高设置多大的值，圆角都不会出现变形，残缺问题，最后用transform-origin位置，
-            //     也就是以原图形的哪一个轴形变
-            width: 38px;
-            height: 38px;
-            position: absolute;
-            left: 0;
-            top: 50%;
-            border: 3px solid #ccc;
-            border-radius: 50%;
-            transform-origin: 0% center;
-            transform: translate(0, -50%) scale(0.5);
-        }
-        div i {
-            display: inline-block;
-            font-size: 25px;
-            font-weight: 600;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            box-sizing: border-box;
-            color: white;
-        }
+        font-weight: normal;
+        line-height: 25px;
     }
-    .fileone {
-        flex: 9;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        p {
-            width: 100%;
-            flex: 1;
-            font-size: 15px;
-            position: relative;
-            font-weight: normal;
-            line-height: 25px;
-        }
-        .detailed {
-            width: 100%;
-            flex: 1;
-            line-height: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-right: 30px;
-            box-sizing: border-box;
-            font-size: 12px;
-            span:nth-child(1) {
-                flex: 5;
-            }
-            span:nth-child(2) {
-                flex: 2;
-            }
-            span:nth-child(2) {
-                flex: 3;
-            }
-        }
-    }
-}
-/*平板*/
-@media screen and (min-width: 600px) and (max-width: 960px) {
-    .uploadfileContainer {
-        width: 70%;
-        margin: 0 auto;
-    }
-    .dropbox {
-        position: relative;
-        background: skyblue;
-        width: 70%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        padding: 3% 2%;
-        box-sizing: border-box;
-        div {
-            width: 120px;
-            height: 75px;
-            background: white;
-            box-sizing: border-box;
-            font-size: 13px;
-        }
-        i {
-            font-size: 35px;
-            color: #4a9bf9;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .load {
-            position: relative;
-            width: 25%;
-            height: 0;
-            padding-bottom: 25%;
-            border-radius: 5px;
-            margin-right: 20px;
-            .loadinputfile {
-                position: absolute;
-                left: 0;
-                top: 0;
-                opacity: 0;
-                width: 100%;
-                height: 100%;
-            }
-        }
-        .open {
-            position: relative;
-            width: 25%;
-            height: 0;
-            padding-bottom: 25%;
-            border-radius: 5px;
-            i {
-                color: purple;
-                font-size: 25px;
-                font-weight: bold;
-            }
-        }
-        .exist {
-            position: absolute;
-            left: 50%;
-            bottom: -20%;
-            text-align: center;
-            line-height: 35px;
-            width: 20%;
-            background: linear-gradient(0.31deg, #3cac8a 0.7%, #5cceac 99.3%);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-            font-size: 15px;
-            color: white;
-            border-radius: 5px;
-        }
-    }
-    .checkallbox {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 30px 0 12px;
-        box-sizing: border-box;
-        background-color: #fff;
-        .checkall {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 45px;
-            span {
-                font-size: 15px;
-                display: inline-block;
-            }
-            div {
-                width: 38px;
-                height: 38px;
-                transform-origin: 0% center;
-                transform: scale(0.5);
-                border-radius: 50%;
-                border: 3px solid #ccc;
-                position: relative;
-            }
-            div i {
-                display: inline-block;
-                font-size: 25px;
-                font-weight: 600;
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                text-align: center;
-                box-sizing: border-box;
-                color: white;
-            }
-        }
-        .upload {
-            width: 60px;
-            height: 30px;
-            border-radius: 5px;
-            font-size: 13px;
-            border: 2px solid #4a9bf9;
-            background: white;
-        }
-        .upload:active {
-            border: none;
-            color: #fff;
-            background-color: skyblue;
-        }
-    }
-    .hightlight {
-        .filetitle {
-            height: 35px;
-            line-height: 35px;
-            padding-left: 10px;
-            display: flex;
-            justify-content: space-between;
-            span {
-                display: block;
-                flex: 1;
-                font-size: 13px;
-                box-sizing: border-box;
-            }
-        }
-    }
-    .hightlight .catalogue {
-        .flexbox {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-left: 12px;
-        }
-    }
-    .ischeck {
+    .detailed {
+        width: 100%;
         flex: 1;
-        position: relative;
-        div {
-            // 解决安卓手机渲染圆形圆角变形：
-            //     先把px/rem的值放大一遍，是所有属性的尺寸，然后用transform:scale(.5)缩小一倍，
-            //     就达到无论宽高设置多大的值，圆角都不会出现变形，残缺问题，最后用transform-origin位置，
-            //     也就是以原图形的哪一个轴形变
-            width: 38px;
-            height: 38px;
-            position: absolute;
-            left: 0;
-            top: 50%;
-            border: 3px solid #ccc;
-            border-radius: 50%;
-            transform-origin: 0% center;
-            transform: translate(0, -50%) scale(0.5);
-        }
-        div i {
-            display: inline-block;
-            font-size: 25px;
-            font-weight: 600;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            box-sizing: border-box;
-            color: white;
-        }
-    }
-    .fileone {
-        flex: 9;
+        line-height: 25px;
         display: flex;
-        flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        p {
-            width: 100%;
-            flex: 1;
-            font-size: 15px;
-            position: relative;
-            font-weight: normal;
-            line-height: 25px;
-        }
-        .detailed {
-            width: 100%;
-            flex: 1;
-            line-height: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-right: 30px;
-            box-sizing: border-box;
-            font-size: 12px;
-            span:nth-child(1) {
-                flex: 5;
-            }
-            span:nth-child(2) {
-                flex: 2;
-            }
-            span:nth-child(2) {
-                flex: 3;
-            }
-        }
-    }
-}
-/*PC*/
-@media screen and (min-width: 960px) {
-    .uploadfileContainer {
-        width: 70%;
-        margin: 0 auto;
-    }
-    .dropbox {
-        position: relative;
-        background: skyblue;
-        display: flex;
-        justify-content: center;
-        padding: 3% 2%;
+        padding-right: 30px;
         box-sizing: border-box;
-        div {
-            width: 120px;
-            height: 75px;
-            background: white;
-            box-sizing: border-box;
-            font-size: 13px;
+        font-size: 12px;
+        span:nth-child(1) {
+            flex: 5;
         }
-        i {
-            font-size: 35px;
-            color: #4a9bf9;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+        span:nth-child(2) {
+            flex: 2;
         }
-        .load {
-            position: relative;
-            width: 25%;
-            height: 0;
-            padding-bottom: 25%;
-            border-radius: 5px;
-            margin-right: 20px;
-            .loadinputfile {
-                position: absolute;
-                left: 0;
-                top: 0;
-                opacity: 0;
-                width: 100%;
-                height: 100%;
-            }
-        }
-        .open {
-            position: relative;
-            width: 25%;
-            height: 0;
-            padding-bottom: 25%;
-            border-radius: 5px;
-            i {
-                color: purple;
-                font-size: 25px;
-                font-weight: bold;
-            }
-        }
-        .exist {
-            position: absolute;
-            left: 50%;
-            bottom: -20%;
-            text-align: center;
-            line-height: 35px;
-            width: 20%;
-            background: linear-gradient(0.31deg, #3cac8a 0.7%, #5cceac 99.3%);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-            font-size: 15px;
-            color: white;
-            border-radius: 5px;
-        }
-    }
-    .checkallbox {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 30px 0 12px;
-        box-sizing: border-box;
-        background-color: #fff;
-        .checkall {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 45px;
-            span {
-                font-size: 15px;
-                display: inline-block;
-            }
-            div {
-                width: 38px;
-                height: 38px;
-                transform-origin: 0% center;
-                transform: scale(0.5);
-                border-radius: 50%;
-                border: 3px solid #ccc;
-                position: relative;
-            }
-            div i {
-                display: inline-block;
-                font-size: 25px;
-                font-weight: 600;
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                text-align: center;
-                box-sizing: border-box;
-                color: white;
-            }
-        }
-        .upload {
-            width: 60px;
-            height: 30px;
-            border-radius: 5px;
-            font-size: 13px;
-            border: 2px solid #4a9bf9;
-            background: white;
-        }
-        .upload:active {
-            border: none;
-            color: #fff;
-            background-color: skyblue;
-        }
-    }
-    .hightlight {
-        .filetitle {
-            height: 35px;
-            line-height: 35px;
-            padding-left: 10px;
-            display: flex;
-            justify-content: space-between;
-            span {
-                display: block;
-                flex: 1;
-                font-size: 13px;
-                box-sizing: border-box;
-            }
-        }
-    }
-    .hightlight .catalogue {
-        .flexbox {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-left: 12px;
-        }
-    }
-    .ischeck {
-        flex: 1;
-        position: relative;
-        div {
-            // 解决安卓手机渲染圆形圆角变形：
-            //     先把px/rem的值放大一遍，是所有属性的尺寸，然后用transform:scale(.5)缩小一倍，
-            //     就达到无论宽高设置多大的值，圆角都不会出现变形，残缺问题，最后用transform-origin位置，
-            //     也就是以原图形的哪一个轴形变
-            width: 38px;
-            height: 38px;
-            position: absolute;
-            left: 0;
-            top: 50%;
-            border: 3px solid #ccc;
-            border-radius: 50%;
-            transform-origin: 0% center;
-            transform: translate(0, -50%) scale(0.5);
-        }
-        div i {
-            display: inline-block;
-            font-size: 25px;
-            font-weight: 600;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            box-sizing: border-box;
-            color: white;
-        }
-    }
-    .fileone {
-        flex: 9;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        p {
-            width: 100%;
-            flex: 1;
-            font-size: 15px;
-            position: relative;
-            font-weight: normal;
-            line-height: 25px;
-        }
-        .detailed {
-            width: 100%;
-            flex: 1;
-            line-height: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-right: 30px;
-            box-sizing: border-box;
-            font-size: 12px;
-            span:nth-child(1) {
-                flex: 5;
-            }
-            span:nth-child(2) {
-                flex: 2;
-            }
-            span:nth-child(2) {
-                flex: 3;
-            }
+        span:nth-child(2) {
+            flex: 3;
         }
     }
 }

@@ -1,35 +1,40 @@
 <template>
     <div class="home" ref="wrap">
-        <lightbar></lightbar>
-        <div class="bar" ref="bar">
-            <div class="flexbar" ref="author">
-                <span>Author:catkinswind</span>
-                <span>Date:2019-4-10</span>
-            </div>
-            <div class="flexul">
-                <ul>
-                    <li>
-                        <a href="javascript:;" title>Products</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" title>Projects</a>
-                    </li>
-                    <li>
-                        <router-link to="/home/media" title>Home</router-link>
-                    </li>
-                    <li>
-                        <router-link to="/home/uploadfile" title>Upload Files</router-link>
-                    </li>
-                    <li>
-                        <a href="javascript:;" title>Induction</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" title>key</a>
-                    </li>
-                </ul>
+        <!-- <lightbar></lightbar> -->
+        <div class="barbox">
+            <div class="bar" ref="bar">
+                <div class="flexbar" ref="author">
+                    <span>Author:catkinswind</span>
+                    <span>Date:2019-4-10</span>
+                </div>
+                <div class="flexul">
+                    <ul>
+                        <li>
+                            <a href="javascript:;" title>Products</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" title>Projects</a>
+                        </li>
+                        <li>
+                            <router-link to="/home/media" title>Home</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/home/uploadfile" title>Upload Files</router-link>
+                        </li>
+                        <li>
+                            <a href="javascript:;" title>Induction</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" title>key</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div :class="['titlebox',{'black_boxshadow':flag}]" ref="titlebox">
+        <div
+            :class="[{'titlebox_relative':!titleFlag},{'black_boxshadow':boxshadowFlag},{'titlebox_fixed':titleFlag}]"
+            ref="titlebox"
+        >
             <div class="title">
                 <div class="logobox">
                     <logo height="50px"></logo>
@@ -42,7 +47,7 @@
                     <userbar v-if="!signin" height="30px" fontsize="13px" :showname="false"></userbar>
                 </div>
             </div>
-            <div :class="[{'filament':!flag}]"></div>
+            <div :class="[{'filament':!boxshadowFlag}]"></div>
         </div>
         <div class="content" ref="content">
             <div class="left"></div>
@@ -51,7 +56,12 @@
                     <router-view v-if="$route.meta.keepAlive"></router-view>
                 </keep-alive>
                 <router-view v-if="!$route.meta.keepAlive"></router-view>
-                <input type="button" style="width:60px;height:30px" @mouseenter="prompt" />
+                <input
+                    type="button"
+                    style="width:60px;height:30px"
+                    prompt="prompt message"
+                    v-prompt
+                />
             </div>
             <div class="right">
                 <div>
@@ -59,27 +69,26 @@
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <div style="width:100px;height:100px;box-shadow:0px 20px 20px -20px #5E5E5E;"></div>
-        </div>
+        <div class="footer"></div>
     </div>
     <!-- <alert :showAlert="ok" ></alert> -->
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { Prompt } from '../pulgin';
+// import { Prompt } from '../pulgin';
 export default {
     name: 'home',
     data () {
         return {
-            flag: false,
+            boxshadowFlag: false,
+            titleFlag: false,
             // scrollTop: $("html").scrollTop()//用不了
         }
     },
     created () {
         console.log(`Home组件接收到的用户名${this.$store.getters.loginName}`);
         this.$_zp();
-        console.log("scrollTop" + this.scrollTop);
+        // console.log("scrollTop" + this.scrollTop);
     },
     mounted () {
         // this.disappear();
@@ -92,17 +101,15 @@ export default {
         const $titlebox = this.$refs.titlebox;
         $("#app").on("scroll", function () {
             if (this.scrollTop > _this.$refs.bar.offsetHeight + 2) {
-                $titlebox.style.position = 'fixed';
-                $titlebox.style.top = 0;
-                $titlebox.style.width = $(document).width() - 17 + 'px';
+                // $titlebox.style.width = $(document).width() - 17 + 'px';
+                _this.titleFlag = true;
             } else {
-                $titlebox.style.position = 'relative';
-                $titlebox.style.top = 0;
+                _this.titleFlag = false;
             }
             if (this.scrollTop !== 0) {
-                _this.flag = true;
+                _this.boxshadowFlag = true;
             } else {
-                _this.flag = false;
+                _this.boxshadowFlag = false;
             }
         })
 
@@ -118,13 +125,11 @@ export default {
         },
         prompt (el) {
             el = el.target;
-            const el_left = el.getBoundingClientRect().left;
-            const el_top = el.getBoundingClientRect().top;
             const result = Prompt({
                 el,
                 message: 'prompt message',
-                el_left,
-                el_top
+                el_left: el.getBoundingClientRect().left,
+                el_top: el.getBoundingClientRect().top
             })
             el.onmouseout = () => {
                 result.close();
@@ -154,19 +159,24 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.barbox {
+    position: relative;
+    width: 100%;
+    background-color: white;
+}
 .bar {
     height: 50px;
     line-height: 50px;
-    letter-spacing: 1px;
+    // letter-spacing: 1px;
     width: 1200px;
     margin: 0 auto;
     position: relative;
-    background-color: white;
     .flexbar {
         position: absolute;
         left: 0;
         top: 0;
-        font-size: 11px;
+        font-family: 'Consolas';
+        font-size: 12px;
         span:nth-child(1) {
             margin-right: 20px;
         }
@@ -178,19 +188,30 @@ export default {
         ul {
             li {
                 float: left;
-                margin-left: 15px;
-                font-size: 11px;
+                margin-left: 20px;
             }
             a {
+                font-family: 'Consolas';
+                font-size: 16px;
                 text-decoration: none;
+                color: black;
+                transform: scale(0.5);
             }
         }
     }
 }
-.titlebox {
+.titlebox_relative {
     position: relative;
     width: 100%;
     background-color: white;
+}
+.titlebox_fixed {
+    position: fixed;
+    top: 0;
+    width: calc(100% - 17px);
+    background-color: white;
+    z-index: 999;
+    overflow: hidden;
 }
 .title {
     width: 1200px;
@@ -230,7 +251,7 @@ a:focus {
 .content {
     width: 1200px;
     margin: 0 auto;
-    // background-color: #1f8acc;
+    // background-color: white;
 }
 // .bar::after {
 //     display: block;
@@ -240,4 +261,10 @@ a:focus {
 //     height: 0;
 //     zoom: 1;
 // }
+.footer {
+    width: 100%;
+    height: 190px;
+    padding: 20px;
+    background-image: url('~@/assets/images/bg_footer.png');
+}
 </style>

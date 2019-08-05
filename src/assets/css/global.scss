@@ -14,7 +14,10 @@ body {
 }
 
 .black_boxshadow {
-    box-shadow: 0 13px 15px -20px black;
+    // overflow-x: hidden;
+    // box-shadow: 20px 11px 14px -20px black;
+    border-bottom: 1px solid #ebebeb;
+    box-shadow: -3px 0 5px #888;
 }
 
 .filament8 {
