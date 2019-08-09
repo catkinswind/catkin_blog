@@ -1,3 +1,12 @@
+/*
+ * @Description: file information
+ * @version: 
+ * @Company: my Company
+ * @Author: zhangpeng
+ * @Date: 2019-06-04 21:09:37
+ * @LastEditors: 
+ * @LastEditTime: 2019-08-09 14:53:29
+ */
 import moment from "moment";
 
 // vuex保存状态
@@ -16,15 +25,14 @@ export default {
         Vue.mixin({
             methods: {
                 // ...mapMutations(['setTimer']),
-                pwd(el) {
+                pwd() {
                     if (this.userPwd !== "") {
                         if (!/^[-_A-z0-9$@!%*#?&]{4,16}$/.test(this.userPwd)) {
                             //密码格式不对
-                            this.$_hight(el, "red");
+                            this.errflag = true;
+                            this.errmsg = "密码格式错误";
                         } else {
                             this.repwd();
-                            el.style.border = " 1px solid #CCC";
-                            el.style.boxShadow = "0 0 5px transparent";
                         }
                     }
                 },
@@ -38,6 +46,7 @@ export default {
                         }
                     }
                 },
+                //this.$_diffTime('1998-05-09', new Date(), 'years');
                 $_diffTime: (date, currdate, option) => moment(currdate).diff(moment(date), option),
                 $_openeye(el, node) {
                     // 取样式不能直接使用el.target.style.color，这样获取不到
@@ -72,8 +81,8 @@ export default {
                                 //bstop初始值为true，判断条件后，满足，仍为true， if (bStop) 为true，停止定时器
                                 var speed = (json[attr] - curr) / 4;
                                 //到了目标效果点，speed速度为0，obj.style[attr] = curr + speed + 'px';此句没有效果
-                                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
-                                // var speed=curr<json[attr]?speed=1:speed=-1;//很大可能性有一条边抖动，与距离目标点的距离和运动幅度有关
+                                // speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                                var speed = curr < json[attr] ? speed = 6 : speed = -6; //很大可能性有一条边抖动，与距离目标点的距离和运动幅度有关
                                 if (attr == 'opacity') {
                                     obj.style[attr] = (curr + speed) / 100;
                                     obj.style.filter = 'alpha(opacity:' + (curr + speed) + ')';
@@ -81,6 +90,15 @@ export default {
                                     obj.style[attr] = curr + speed + 'px'; //因为一个达到目标,他的speed此时为0,+0没有效果
                                     obj.style.display = 'block';
                                     obj.style.overflow = 'hidden';
+                                }
+                                if (Math.abs(json[attr] - curr) <= 6) {
+                                    console.log("小于7");
+                                    if (attr == 'opacity') {
+                                        obj.style[attr] = json[attr] / 100;
+                                        obj.style.filter = 'alpha(opacity:' + json[attr] + ')';
+                                    } else {
+                                        obj.style[attr] = json[attr] + 'px'; //因为一个达到目标,他的speed此时为0,+0没有效果
+                                    }
                                 }
                             }
                         }
@@ -91,7 +109,7 @@ export default {
                             if (fnEnd) { fnEnd(); }
                         }
                         // console.log(obj.Timer);
-                    }, 30);
+                    }, 5);
                 },
                 $_getPos(ev, obj) {
                     var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -111,7 +129,7 @@ export default {
             // 在页面离开时记录滚动位置
             beforeRouteLeave(to, from, next) {
                 document.title = to.meta.title;
-                this.scrollTop = document.querySelector("#app").scrollTop || 0;
+                this.remember_scrollTop = this.$root.$el.scrollTop;
                 next();
             },
             //进入该页面时，用之前保存的滚动位置赋值
@@ -125,7 +143,7 @@ export default {
                     // 	title = document.title = title.join('');
                     // }, 1000);
                     // vm.setTimer(Timer); // 将当前页面得document.title的定时器状态保存到vuex中
-                    document.querySelector("#app").scrollTop = vm.scrollTop;
+                    vm.$root.$el.scrollTop = vm.remember_scrollTop;
                 });
             },
             filters: {
@@ -135,6 +153,11 @@ export default {
                 focus: {
                     inserted: el => {
                         el.focus();
+                    }
+                },
+                element_focus: {
+                    inserted: el => {
+                        el.children[0].focus()
                     }
                 },
                 prompt: function(el) {

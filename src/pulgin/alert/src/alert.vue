@@ -90,7 +90,7 @@ export default {
     transform: translate(-50%, 0);
     width: 90%;
     background: red;
-    border-radius: 5px;
+    border-radius: 3px;
     z-index: 999;
     box-shadow: 0 0 5px #ccc;
 }

@@ -23,9 +23,11 @@ export default {
 
     },
     watch: {
-        "el_left": function (val) {
-            this.$el.style.left = Math.round(val - this.$el.offsetWidth / 2) + 'px';
-            this.$el.style.top = Math.round(this.el_top - this.$el.offsetHeight - 10) + 'px';
+        "el_left": function (newVal) {
+            // this.$el.style.left = Math.round(newVal - this.$el.offsetWidth / 2) + 'px';
+            // this.$el.style.top = Math.round(this.el_top - this.$el.offsetHeight - 3) + 'px';
+            this.$el.style.left = Math.round(newVal + this.$el.offsetWidth / 2 - 2) + 'px';
+            this.$el.style.top = Math.round(this.el_top + 5) + 'px';
         }
     }
 };
@@ -37,7 +39,7 @@ export default {
     border-radius: 5px;
     padding: 0 5px;
     z-index: 999;
-    box-shadow: 0 0 8px;
+    box-shadow: 0 0 5px;
 }
 // .contentbox::before {
 //     content: '';

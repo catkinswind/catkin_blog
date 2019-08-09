@@ -18,6 +18,7 @@ const Alert = (options = {}, callback) => {
         instance[key] = options[key];
     }
     document.body.appendChild(instance.$el);
+    console.log(1111111111111111111111111111111);
 
     let Timer = setInterval(() => {
         if (!instance.showAlert || instance._data.res !== null || instance._data.rej !== null) { // 组件关闭或者只要选中其中一个按钮就为true

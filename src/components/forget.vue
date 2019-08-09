@@ -5,27 +5,25 @@
             <div class="content">
                 <div class="title">Reset password</div>
                 <form autocomplete="off">
-                    <label for="login_field">Username</label>
-                    <input
+                    <label for="login_field" v-focus>Username</label>
+                    <el-input
+                        placeholder="请输入内容"
                         id="login_field"
                         type="text"
                         v-model.trim="userName"
                         spellcheck="false"
-                        v-focus
-                    />
+                        clearable
+                    ></el-input>
                     <label for="register_pwd">New password</label>
                     <div class="eye">
-                        <input
+                        <el-input
+                            placeholder="请输入密码"
                             id="register_pwd"
                             type="password"
                             v-model.trim="userPwd"
                             @change="pwd"
-                            ref="pwd"
-                        />
-                        <span
-                            class="glyphicon glyphicon-eye-close"
-                            @click="$_openeye($event,$refs.pwd)"
-                        ></span>
+                            show-password
+                        ></el-input>
                     </div>
                     <div class="forgetline">
                         <label for="register_pwd_repeeat">
@@ -33,18 +31,14 @@
                         </label>
                     </div>
                     <div class="eye">
-                        <input
+                        <el-input
                             id="register_pwd_repeeat"
-                            type="password"
                             v-model.trim="repuserPwd"
                             @change="repwd"
-                            @keyup.enter="confirm"
-                            ref="eye3"
-                        />
-                        <span
-                            class="glyphicon glyphicon-eye-close"
-                            @click="$_openeye($event,$refs.eye3)"
-                        ></span>
+                            @keyup.native.enter="confirm"
+                            placeholder="请再次输入密码"
+                            show-password
+                        ></el-input>
                     </div>
                     <div class="blank" v-if="!errflag"></div>
                     <div class="verify" v-if="errflag">{{errmsg}}</div>
@@ -82,10 +76,7 @@ export default {
             this.$router.push({ name: 'login' })
         },
         confirm () {
-            if (this.userPwd === '') {
-                this.$_hight(this.$refs.pwd, 'red');
-            }
-            if (this.repuserPwd === '') {
+            if (this.repuserPwd === '' || this.userPwd === '') {
                 this.errflag = true;
                 this.errmsg = '请输入密码';
             }

@@ -1,3 +1,12 @@
+<!--
+ * @Description: file information
+ * @version: 
+ * @Company: my Company
+ * @Author: zhangpeng
+ * @Date: 2019-06-04 21:09:36
+ * @LastEditors: 
+ * @LastEditTime: 2019-08-09 14:56:20
+ -->
 <template>
     <div>
         <logo height="60px"></logo>
@@ -11,30 +20,28 @@
                 <div class="title">Login</div>
                 <form autocomplete="off">
                     <label for="login_field">Username</label>
-                    <input
+                    <el-input
+                        v-element_focus
+                        placeholder="请输入内容"
                         id="login_field"
                         type="text"
                         v-model.trim="userName"
-                        placeholder
-                        v-focus
                         spellcheck="false"
-                    />
+                        clearable
+                    ></el-input>
                     <div class="forgetline">
                         <label for="login_pwd">Password</label>
                         <a href="javascript:;" title="忘记密码？" @click="forget">Forget password?</a>
                     </div>
                     <div class="eye">
-                        <input
+                        <el-input
+                            placeholder="请输入密码"
                             id="login_pwd"
                             type="password"
                             v-model.trim="userPwd"
-                            @keyup.enter="submit"
-                            ref="eye2"
-                        />
-                        <span
-                            class="glyphicon glyphicon-eye-close"
-                            @click="$_openeye($event,$refs.eye2)"
-                        ></span>
+                            @keyup.native.enter="submit"
+                            show-password
+                        ></el-input>
                     </div>
                     <div class="blank" v-if="!errflag"></div>
                     <div class="verify" v-if="errflag">{{errmsg}}</div>

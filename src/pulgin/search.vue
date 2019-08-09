@@ -7,6 +7,7 @@
             @click.stop="expandWidth"
             v-model.trim="value"
             @keyup.enter="search"
+            placeholder="输入关键字搜索"
         />
         <div class="delete_search">
             <transition>
@@ -34,9 +35,9 @@ export default {
         console.log("组件更新了");
         if (this.value === "") {
             //焦点离开组件是text为""，那么长度肯定大于300px了
-            setTimeout(() => {
-                this.$_startMove(this.el, { 'width': 300 }, () => { })
-            }, 200)
+            // setTimeout(() => {
+            this.$_startMove(this.el, { 'width': 300 }, () => { })
+            // }, 200)
         } else {
             this.$_startMove(this.el, { 'width': 450 }, () => { })
         }
@@ -94,7 +95,7 @@ export default {
     border: none;
     outline: none;
     padding: 0 15px 0 15px;
-    border-radius: 5px;
+    border-radius: 3px;
     background-color: #f2f2f2;
 }
 

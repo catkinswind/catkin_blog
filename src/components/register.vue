@@ -5,26 +5,30 @@
             <div class="content">
                 <div class="title">Sign up</div>
                 <form autocomplete="off">
-                    <label for="register_field">Username</label>
-                    <input
+                    <label for="register_field" v-focus>Username</label>
+                    <el-input
+                        placeholder="请输入用户名"
                         id="register_field"
                         type="text"
                         v-model.trim="userName"
                         v-focus
                         spellcheck="false"
-                        @change="name"
-                    />
+                        @change.native="name"
+                        clearable
+                    ></el-input>
                     <div class="verify" v-if="nameflag">{{ namemsg }}</div>
                     <label for="register_email">Email</label>
                     <div class="emailbox">
-                        <input
+                        <el-input
+                            placeholder="请输入邮箱"
                             id="register_email"
                             type="text"
                             v-model.trim="userEmail"
-                            @change="email"
+                            @change.native="email"
                             spellcheck="false"
-                            @keyup="emailcontainer"
-                        />
+                            @keyup.native="emailcontainer"
+                            clearable
+                        ></el-input>
                         <div class="emailcontainer" ref="email">
                             <p
                                 v-for="item in emailList"
@@ -38,18 +42,15 @@
                     </div>
                     <label for="register_pwd">Password</label>
                     <div class="eye">
-                        <input
+                        <el-input
                             id="register_pwd"
                             type="password"
                             v-model.trim="userPwd"
                             placeholder="密码不低于3位字符，且不能含有特殊字符和空格"
-                            @change="pwd($refs.pwd)"
+                            @change.native="pwd($refs.pwd)"
                             ref="pwd"
-                        />
-                        <span
-                            class="glyphicon glyphicon-eye-close"
-                            @click="$_openeye($event, $refs.pwd)"
-                        ></span>
+                            show-password
+                        ></el-input>
                     </div>
                     <div class="forgetline">
                         <label for="register_pwd_repeeat">
@@ -58,18 +59,15 @@
                         <a href="javascript:;" @click="tologin">Already have an account?</a>
                     </div>
                     <div class="eye">
-                        <input
+                        <el-input
+                            placeholder="请再次输入密码"
                             id="register_pwd_repeeat"
                             type="password"
                             v-model.trim="repuserPwd"
                             @change="repwd"
-                            @keyup.enter="register"
-                            ref="eye"
-                        />
-                        <span
-                            class="glyphicon glyphicon-eye-close"
-                            @click="$_openeye($event, $refs.pwd)"
-                        ></span>
+                            @keyup.native.enter="register"
+                            show-password
+                        ></el-input>
                     </div>
                     <div class="blank" v-if="!errflag"></div>
                     <div class="verify" v-if="errflag">{{ errmsg }}</div>
@@ -169,8 +167,6 @@ export default {
         },
         register () {
             const el = this.$refs.btn
-            el.style.border = ' 1px solid #CCC'
-            el.style.boxShadow = '0 0 5px transparent'
             this.errclassflag = this.succclassflag = false
             // 判断信息是否为空
             if (this.userName === '') {
@@ -189,12 +185,6 @@ export default {
             let blank = this.userName !== '' && this.userEmail !== '' && this.userPwd !== '' && this.repuserPwd !== ''
             if (flag && blank) {
                 this.$refs.btn.removeAttribute('readonly')
-                // if (this.show.showAlert) {
-                // 	// setTimeout(()=>{
-                // 	// 	this.show.close();
-                // 	// }, 1000)
-                // 	return;
-                // }
                 const reslut = Alert({
                     message:
                         'No matter where people go and no matter how far they go,they will try their best to go home enjoying family time. And no matter what difficulty or trouble they are experiencing,they will put aside for the period of time. In every house,the main atmosphere is happiness. What do people usually do during the New Year time？',
@@ -247,6 +237,7 @@ export default {
                         })
                     } else {
                         this.registerflag = '注册失败，没有接受协议！'
+                        this.$_hight(el, 'red')
                         this.errclassflag = true;
                     }
                 })

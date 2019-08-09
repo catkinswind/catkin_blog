@@ -1,8 +1,19 @@
+<!--
+ * @Description: file information
+ * @version: 
+ * @Company: my Company
+ * @Author: zhangpeng
+ * @Date: 2019-06-04 21:09:36
+ * @LastEditors: 
+ * @LastEditTime: 2019-08-09 14:42:40
+ -->
 <template>
-    <div id="app" ref>
-        <keep-alive>
-            <router-view v-if="$route.meta.keepAlive"></router-view>
-        </keep-alive>
+    <div id="app">
+        <transition name="fade">
+            <keep-alive>
+                <router-view v-if="$route.meta.keepAlive"></router-view>
+            </keep-alive>
+        </transition>
         <router-view v-if="!$route.meta.keepAlive"></router-view>
     </div>
 </template>
@@ -16,29 +27,15 @@ export default {};
     height: 100%;
     position: relative;
     overflow-x: hidden;
-    /* background-image: linear-gradient(
-        125deg,
-        #2c3e50,
-        #27ae60,
-        #2980b9,
-        #f0932b,
-        #e74c3c,
-        #8344ad
-    );
-    background-size: 400%;
-    animation: bganimation 30s infinite; */
+    /* font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; */
 }
-@keyframes bganimation {
-    0% {
-        background-position: 0 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0 50%;
-    }
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-avtive {
+    transition: all 1.5s ease;
 }
 </style>

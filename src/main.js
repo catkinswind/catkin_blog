@@ -27,6 +27,11 @@ import "./assets/css/loginAndRegister.scss";
 import "./assets/css/clearMarginAndPadding.css";
 // import 'lib-flexible/flexible.js'
 
+//element-ui
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+
 
 import store from "./store/index.js";
 //重新打开页面前清除掉数据，不然会之前登陆的用户会在页面重新打开时还存在，会有安全问题

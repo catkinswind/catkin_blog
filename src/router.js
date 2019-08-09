@@ -1,3 +1,12 @@
+/*
+ * @Description: file information
+ * @version: 
+ * @Company: my Company
+ * @Author: zhangpeng
+ * @Date: 2019-06-04 21:09:36
+ * @LastEditors: 
+ * @LastEditTime: 2019-06-04 21:09:36
+ */
 import VueRouter from 'vue-router'
 
 import Login from './components/Login.vue';
@@ -12,13 +21,24 @@ import PcPersonInfo from './person/PcPerson/PcPersonInfo.vue';
 import AccountManage from './person/PcPerson/AccountManage.vue';
 import SafeManage from './person/PcPerson/SafeManage.vue';
 
+import Welcome from './decorate/Welcome.vue';
+import Index from './decorate/404.vue'
+
 const router = new VueRouter({
-    // mode: 'history',
+    mode: 'history',
     routes: [{
         path: '/',
-        redirect: 'home',
+        redirect: 'welcome',
         meta: {
             title: 'catkin | welcome to my project',
+            keepAlive: true,
+        }
+    }, {
+        path: '/welcome',
+        component: Welcome,
+        name: 'welcome',
+        meta: {
+            title: 'Welcome | catkin',
             keepAlive: true,
         }
     }, {
@@ -45,7 +65,7 @@ const router = new VueRouter({
                 title: 'My First Project',
                 keepAlive: true,
             }
-        }]
+        }],
     }, {
         path: '/login',
         component: Login,
@@ -103,7 +123,17 @@ const router = new VueRouter({
             title: 'My First Project of PersonInfo',
             keepAlive: true,
         },
-    }],
+    }, {
+        path: '/index',
+        name: 'index',
+        component: Index,
+        meta: {
+            title: '404',
+            keepAlive: true,
+        },
+    }, { path: "*", redirect: 'index' }],
+    // linkExactActiveClass: "vue_active"
+    // linkActiveClass: 'vue_active'
 
     // scrollBehavior(to, from, savedPosition) {
     // 	if (savedPosition) {

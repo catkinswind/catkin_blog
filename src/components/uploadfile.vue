@@ -278,7 +278,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .uploadfileContainer {
-    width: 70%;
     margin: 0 auto;
 }
 .dropbox {
