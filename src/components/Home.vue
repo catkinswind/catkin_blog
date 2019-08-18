@@ -1,11 +1,7 @@
 <!--
- * @Description: file information
- * @version: 
- * @Company: my Company
  * @Author: zhangpeng
  * @Date: 2019-06-04 21:09:36
- * @LastEditors: 
- * @LastEditTime: 2019-06-04 21:09:36
+ * @LastEditTime: 2019-08-17 17:26:56
  -->
 <template>
     <div class="home">
@@ -19,7 +15,6 @@
 </template>
 <script>
 
-// import { Prompt } from '../pulgin';
 export default {
     name: 'home',
     data () {
@@ -50,9 +45,9 @@ export default {
         },
     },
     components: {
-        navigation: () => import('../subcomponents/Navigation.vue'),
-        trunk: () => import('../subcomponents/Trunk.vue'),
-        cover: () => import('../subcomponents/Cover.vue'),
+        navigation: () => import('@/subcomponents/Navigation'),
+        trunk: () => import('@/subcomponents/Trunk'),
+        cover: () => import('@/subcomponents/Cover'),
     },
 
     // watch: {

@@ -1,3 +1,8 @@
+<!--
+ * @Author: zhangpeng
+ * @Date: 2019-06-04 21:09:36
+ * @LastEditTime: 2019-08-17 20:17:03
+ -->
 <template>
     <div>
         <logo height="60px"></logo>
@@ -99,7 +104,7 @@
 </template>
 <script>
 // 发布到npm上的包因为被放在了node_modules中了，同时加载的原理会从内往外找node_modules加载需要的资源
-import { Alert } from '../pulgin'
+import { Alert } from '@/plugins'
 export default {
     data () {
         return {
@@ -194,11 +199,8 @@ export default {
                     className: 'myalert'
                 }, result => {
                     if (result) {
-                        let form = new FormData()
-                        form.append('userName', this.userName)
-                        let config = { headers: { 'Content-Type': 'multipart/from-data' } }
-                        this.axios.post('/api/register.php', form, config).then(resp => {
-                            let data = resp.data
+                        const data = { 'userName': this.userName };
+                        this.$axios.post('/api/register.php', data).then(data => {
                             console.log(data)
                             if (data.isname) {
                                 //账号存在
@@ -206,13 +208,8 @@ export default {
                                 this.$_hight(el, 'red')
                                 this.errclassflag = true
                             } else {
-                                let form = new FormData()
-                                form.append('userName', this.userName)
-                                form.append('userEmail', this.userEmail)
-                                form.append('userPwd', this.userPwd)
-                                let config = { headers: { 'Content-Type': 'multipart/from-data' } }
-                                this.axios.post('/api/register.php', form, config).then(resp => {
-                                    let data = resp.data;
+                                const data = { 'userName': this.userName, 'userEmail': this.userEmail, 'userPwd': this.userPwd };
+                                this.$axios.post('/api/register.php', data).then(data => {
                                     console.log(data)
                                     if (data === 1) {
                                         //存入json文件中并验证成功
@@ -247,7 +244,7 @@ export default {
         }
     },
     components: {
-        logo: () => import('../decorate/Logo.vue')
+        logo: () => import('@/decorate/Logo')
     },
     // mounted () {
     updated () {

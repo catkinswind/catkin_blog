@@ -5,7 +5,7 @@
  * @Author: zhangpeng
  * @Date: 2019-06-04 21:09:36
  * @LastEditors: 
- * @LastEditTime: 2019-08-09 14:42:40
+ * @LastEditTime: 2019-08-17 16:35:02
  -->
 <template>
     <div id="app">
@@ -36,6 +36,6 @@ export default {};
 }
 .fade-enter-active,
 .fade-leave-avtive {
-    transition: all 1.5s ease;
+    transition: all 1s ease;
 }
 </style>

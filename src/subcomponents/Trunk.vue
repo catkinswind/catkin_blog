@@ -5,7 +5,7 @@
  * @Author: zhangpeng
  * @Date: 2019-08-06 14:56:54
  * @LastEditors: 
- * @LastEditTime: 2019-08-09 14:57:12
+ * @LastEditTime: 2019-08-16 22:38:35
  -->
 <template>
     <div
@@ -18,10 +18,10 @@
         <div class="middle">
             <transition name="fade">
                 <keep-alive>
-                    <router-view v-if="$route.meta.keepAlive"></router-view>
+                    <router-view v-if="$route.meta.keepAlive" :key="$route.fullPath"></router-view>
                 </keep-alive>
-                <router-view v-if="!$route.meta.keepAlive"></router-view>
             </transition>
+            <router-view v-if="!$route.meta.keepAlive"></router-view>
             <div class="jumbotron" style="padding:48px 80px">
                 <h1>Hello, world!</h1>
                 <p>Welcome to my project !!!</p>
@@ -78,9 +78,8 @@ export default {
 
     },
     components: {
-        catalogue: () => import('./Catalogue.vue'),
-        bottom: () => import('./Bottom.vue'),
-
+        catalogue: () => import('@/subcomponents/Catalogue'),
+        bottom: () => import('@/subcomponents/Bottom'),
     }
 };
 </script>

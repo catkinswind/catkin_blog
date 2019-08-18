@@ -5,7 +5,7 @@
  * @Author: zhangpeng
  * @Date: 2019-08-06 17:15:09
  * @LastEditors: 
- * @LastEditTime: 2019-08-09 13:19:41
+ * @LastEditTime: 2019-08-17 21:01:43
  -->
 <template>
     <div class="catalogue_box">
@@ -16,7 +16,7 @@
                         type="text"
                         class="form-control"
                         v-model.trim="search_value"
-                        placeholder="Search for..."
+                        placeholder="搜索文章 ..."
                         ref="search_catalogue"
                     />
                 </div>
@@ -43,7 +43,11 @@
                 </div>
                 <transition-group tag="div" appear>
                     <div class="second_title" :key="item.name" v-if="item.show">
-                        <div v-for="ele in item.second_title" :key="ele.name">
+                        <div
+                            v-for="ele in item.second_title"
+                            :key="ele.name"
+                            @click.stop="show_article(ele.name)"
+                        >
                             <!-- <span class="glyphicon glyphicon-file" aria-hidden="true"></span> -->
                             <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
                             <a href="javascript:;">{{ele.name}}</a>
@@ -122,11 +126,25 @@ export default {
             }
             array.forEach((ele, i) => {
                 ele.show = false;
-                this.$refs[ele.name + i][0].style.color = '#000';
+                this.$refs[ele.name + i][0].style.color = '#2b579a';
             });
             item.show = true;
             this.$refs[item.name + index][0].style.color = 'red';
             this.$forceUpdate();
+        },
+        show_article (name) {
+            this.$router.push({//实现restful api风格
+                name: "article",
+                params: {
+                    name: name.replace(/\s/g, '')
+                }
+            });
+            // this.$router.push({
+            //     path: '/home/article',
+            //     query: {
+            //         id: i
+            //     }
+            // });
         },
     }
 };
@@ -145,6 +163,7 @@ export default {
     .books {
         padding: 5px 0;
         overflow: hidden;
+        color: #2b579a;
         .primary_title {
             display: flex;
             justify-content: space-between;

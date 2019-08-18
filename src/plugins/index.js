@@ -1,11 +1,7 @@
 /*
- * @Description: file information
- * @version: 
- * @Company: my Company
  * @Author: zhangpeng
  * @Date: 2019-06-04 21:09:37
- * @LastEditors: 
- * @LastEditTime: 2019-08-09 14:53:29
+ * @LastEditTime: 2019-08-18 09:45:49
  */
 import moment from "moment";
 
@@ -13,51 +9,24 @@ import moment from "moment";
 // import { mapGetters,mapMutations } from 'vuex'
 
 // 过滤器
-import * as filters from "./filters.js";
+import * as filters from "@/plugins/filters";
+//指令
+import * as directives from '@/plugins/directives';
+//全局方法
+import * as global from '@/utils/global';
 
 // JS Component
-export { default as Alert } from "./alert";
-import { default as Prompt } from './prompt';
-export { default as Prompt } from "./prompt";
+export { default as Alert } from "@/plugins/alert";
+export { default as Prompt } from "@/plugins/prompt";
 
 export default {
-    install(Vue, options) {
+    install(Vue) {
         Vue.mixin({
             methods: {
                 // ...mapMutations(['setTimer']),
-                pwd() {
-                    if (this.userPwd !== "") {
-                        if (!/^[-_A-z0-9$@!%*#?&]{4,16}$/.test(this.userPwd)) {
-                            //密码格式不对
-                            this.errflag = true;
-                            this.errmsg = "密码格式错误";
-                        } else {
-                            this.repwd();
-                        }
-                    }
-                },
-                repwd() {
-                    this.errflag = false;
-                    if (this.repuserPwd !== "" && this.userPwd !== "") {
-                        if (this.repuserPwd !== this.userPwd) {
-                            //两次密码不一致
-                            this.errflag = true;
-                            this.errmsg = "两次输入的密码不一致";
-                        }
-                    }
-                },
+                ...global,
                 //this.$_diffTime('1998-05-09', new Date(), 'years');
                 $_diffTime: (date, currdate, option) => moment(currdate).diff(moment(date), option),
-                $_openeye(el, node) {
-                    // 取样式不能直接使用el.target.style.color，这样获取不到
-                    if (this.$_getStyle(el.target, "color") === "rgb(204, 204, 204)") {
-                        el.target.style.color = "#1F8ACC";
-                        node.setAttribute("type", "text");
-                    } else {
-                        el.target.style.color = "#CCC";
-                        node.setAttribute("type", "password");
-                    }
-                },
                 //目标物体属性的值，带有单位
                 $_getStyle: (el, name) => el.currentStyle ? el.currentStyle[name] : getComputedStyle(el, false)[name],
                 $_startMove(obj, json, fnEnd) { //元素节点，需要改变的属性，改变的目标值
@@ -122,7 +91,7 @@ export default {
                         obj.style.top = ev.clientY + scrollTop + 'px';
                     }
                 },
-                ...filters
+                ...filters,
             },
             mounted() {},
             updated() {},
@@ -150,86 +119,16 @@ export default {
                 ...filters
             },
             directives: {
-                focus: {
-                    inserted: el => {
-                        el.focus();
-                    }
-                },
-                element_focus: {
-                    inserted: el => {
-                        el.children[0].focus()
-                    }
-                },
-                prompt: function(el) {
-                    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                    let scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
-                    let result = null;
-                    el.onmousemove = ev => {
-                        let pos = { x: ev.pageX || ev.clientX + scrollLeft, y: ev.pageY || ev.clientY + scrollTop };
-                        result = Prompt({
-                            el,
-                            prompt: el.getAttribute("prompt"),
-                            el_left: pos.x,
-                            el_top: pos.y
-                        })
-                        window.event ? window.event.cancelBubble = true : ev.stopPropagation();
-                    }
-                    el.onmouseout = () => {
-                        if (result && result.exist()) result.close();
-                    }
-                    document.addEventListener("mousemove", function(ev) {
-                        if (ev.srcElement === el) {
-                            let pos = { x: ev.pageX || ev.clientX + scrollLeft, y: ev.pageY || ev.clientY + scrollTop };
-                            result = Prompt({
-                                el,
-                                prompt: el.getAttribute("prompt"),
-                                el_left: pos.x,
-                                el_top: pos.y
-                            })
-                        } else {
-                            if (result && result.exist()) result.close();
-                        }
-                    })
-                }
+                ...directives
             },
             computed: {
                 // ...mapGetters(['getTimer'])
             },
             components: {
                 // CSS Component
-                lightbar: () => import("./lightbar.vue"),
-                search: () => import("./search.vue")
+                lightbar: () => import("@/plugins/lightbar.vue"),
+                search: () => import("@/plugins/search.vue")
             }
         });
-        Vue.prototype.extend = function(obj) {
-            for (let key in obj) {
-                this[key] = obj[key];
-            }
-        };
-        Vue.prototype.extend({
-            $_hight(el, warnColor, prevColor) {
-                el.timer = setTimeout(() => {
-                    el.style.transition = "all 1s ease";
-                    el.style.borderColor = `${warnColor}`;
-                    // 1.阴影距离左边框距离  2.阴影距离上边框距离 3.模糊度  4.阴影扩展
-                    el.style.boxShadow = `0 12px 10px -5px  ${warnColor}`;
-                    setTimeout(() => {
-                        if (prevColor) {
-                            el.style.transition = "all 1s ease";
-                            el.style.boxShadow = `0 12px 10px -5px transparent`;
-                            el.style.borderColor = `${prevColor}`;
-                        }
-                    }, 1000);
-                }, 200);
-            },
-            $_zp() {
-                console.log("自定义组件测试");
-            },
-
-
-        });
-        // Vue.$ref.prototype.hover = function() {
-        //     console.log(111);
-        // }
     }
 };

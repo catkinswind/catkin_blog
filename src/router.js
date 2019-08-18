@@ -5,24 +5,14 @@
  * @Author: zhangpeng
  * @Date: 2019-06-04 21:09:36
  * @LastEditors: 
- * @LastEditTime: 2019-06-04 21:09:36
+ * @LastEditTime: 2019-08-17 20:46:03
  */
 import VueRouter from 'vue-router'
 
-import Login from './components/Login.vue';
-import Home from './components/Home.vue';
-import Register from './components/Register.vue';
-import Forget from './components/Forget.vue';
-import UpLoadFile from './components/UpLoadFile.vue';
-import media from './subcomponents/media.vue';
-
-import PhonePersonInfo from './person/PhonePerson/PhonePersonInfo.vue';
-import PcPersonInfo from './person/PcPerson/PcPersonInfo.vue';
-import AccountManage from './person/PcPerson/AccountManage.vue';
-import SafeManage from './person/PcPerson/SafeManage.vue';
-
-import Welcome from './decorate/Welcome.vue';
-import Index from './decorate/404.vue'
+import PhonePersonInfo from '@/person/PhonePerson/PhonePersonInfo';
+import PcPersonInfo from '@/person/PcPerson/PcPersonInfo';
+import AccountManage from '@/person/PcPerson/AccountManage';
+import SafeManage from '@/person/PcPerson/SafeManage';
 
 const router = new VueRouter({
     mode: 'history',
@@ -35,7 +25,7 @@ const router = new VueRouter({
         }
     }, {
         path: '/welcome',
-        component: Welcome,
+        component: () => import('@/decorate/Welcome'),
         name: 'welcome',
         meta: {
             title: 'Welcome | catkin',
@@ -43,7 +33,7 @@ const router = new VueRouter({
         }
     }, {
         path: '/home',
-        component: Home,
+        component: () => import('@/components/Home'),
         name: 'home',
         meta: {
             title: 'catkin | welcome to my project',
@@ -51,7 +41,7 @@ const router = new VueRouter({
         },
         children: [{
             path: 'uploadfile',
-            component: UpLoadFile,
+            component: () => import('@/components/UpLoadFile'),
             name: 'uploadfile',
             meta: {
                 title: 'My First Project',
@@ -59,16 +49,23 @@ const router = new VueRouter({
             }
         }, {
             path: 'media',
-            component: media,
+            component: () => import('@/subcomponents/media'),
             name: 'media',
             meta: {
                 title: 'My First Project',
                 keepAlive: true,
             }
+        }, {
+            path: "article/:name",
+            component: () => import('@/subcomponents/Article'),
+            name: 'article',
+            meta: {
+                keepAlive: true,
+            }
         }],
     }, {
         path: '/login',
-        component: Login,
+        component: () => import('@/components/Login'),
         name: 'login',
         meta: {
             title: 'My First Project of login',
@@ -76,7 +73,7 @@ const router = new VueRouter({
         }
     }, {
         path: '/forget/:name',
-        component: Forget,
+        component: () => import('@/components/Forget'),
         name: 'forget',
         meta: {
             title: 'My First Project of retrieve password',
@@ -84,7 +81,7 @@ const router = new VueRouter({
         }
     }, {
         path: '/register',
-        component: Register,
+        component: () => import('@/components/Register'),
         name: 'register',
         meta: {
             title: 'My First Project of register an account',
@@ -126,7 +123,7 @@ const router = new VueRouter({
     }, {
         path: '/index',
         name: 'index',
-        component: Index,
+        component: () => import('@/decorate/404'),
         meta: {
             title: '404',
             keepAlive: true,

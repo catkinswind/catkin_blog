@@ -1,3 +1,8 @@
+/*
+ * @Author: zhangpeng
+ * @Date: 2019-06-04 21:09:37
+ * @LastEditTime: 2019-08-18 09:32:19
+ */
 import moment from 'moment';
 export const dateFormat = (date, pattern = "YYYY-MM-DD hh:mm:ss") => moment(date).format(pattern);
 export const computedSize = (size) => {

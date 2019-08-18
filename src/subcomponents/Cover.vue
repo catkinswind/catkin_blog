@@ -1,3 +1,8 @@
+<!--
+ * @Author: zhangpeng
+ * @Date: 2019-08-06 15:07:49
+ * @LastEditTime: 2019-08-18 09:29:29
+ -->
 <template>
     <div class="bground">
         <div class="click" @click="toHome">
@@ -39,7 +44,7 @@ export default {
         width: 250px;
         height: 60px;
         background-color: #fabc03;
-        box-shadow: 8px 8px 0 #6e3112;
+        box-shadow: 6px 6px 0 #6e3112;
         position: absolute;
         left: 50%;
         top: 50%;

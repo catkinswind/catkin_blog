@@ -1,10 +1,14 @@
+/*
+ * @Author: zhangpeng
+ * @Date: 2019-06-04 21:09:37
+ * @LastEditTime: 2019-08-18 09:42:35
+ */
 import Vue from 'vue';
 import Vuex from 'vuex';
-import * as getters from './getters.js' //会将若干个export导出的内容组合成一个对象返回
-import * as actions from './actions.js'
-import mutations from './mutations.js'
+import * as getters from './getters' //会将若干个export导出的内容组合成一个Module返回
+import * as actions from './actions'
+import mutations from './mutations'
 import VuexAlong from 'vuex-along';
-
 Vue.use(Vuex);
 // 创建一个Vue.Store实例，得到一个数据仓库对象
 let store = new Vuex.Store({ //Store一定要大写，表示构造函数

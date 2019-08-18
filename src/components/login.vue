@@ -1,11 +1,7 @@
 <!--
- * @Description: file information
- * @version: 
- * @Company: my Company
  * @Author: zhangpeng
  * @Date: 2019-06-04 21:09:36
- * @LastEditors: 
- * @LastEditTime: 2019-08-09 14:56:20
+ * @LastEditTime: 2019-08-17 17:25:13
  -->
 <template>
     <div>
@@ -88,15 +84,8 @@ export default {
                 this.errflag = true;
             }
             if (this.userName !== '' && this.userPwd !== '') {
-                let form = new FormData();
-                form.append('userName', this.userName);
-                form.append('userPwd', this.userPwd);
-                console.log(this.userName)
-                let config = {
-                    headers: { 'Content-Type': 'multipart/from-data' }
-                }
-                this.axios.post('/api/login.php', form, config).then(resp => {
-                    let data = resp.data;
+                const data = { 'userName': this.userName, 'userPwd': this.userPwd };
+                this.$axios.post('/api/login.php', data).then(data => {
                     console.log(data)
                     if (data.isname) {//账号存在
                         if (data.ispwd) {//密码正确
@@ -135,7 +124,7 @@ export default {
         }
     },
     components: {
-        logo: () => import('../decorate/Logo.vue'),
+        logo: () => import('@/decorate/Logo'),
     }
 };
 </script>

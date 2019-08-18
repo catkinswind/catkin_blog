@@ -5,7 +5,7 @@
  * @Author: zhangpeng
  * @Date: 2019-08-06 16:10:06
  * @LastEditors: 
- * @LastEditTime: 2019-08-09 09:18:56
+ * @LastEditTime: 2019-08-16 22:36:31
  -->
 <template>
     <div class="header">
@@ -57,9 +57,9 @@ export default {
 
     },
     components: {
-        logo: () => import('../decorate/Logo.vue'),
-        signinbar: () => import('../person/SignInBar.vue'),
-        userbar: () => import('../person/UserBar.vue'),
+        logo: () => import('@/decorate/Logo'),
+        signinbar: () => import('@/person/SignInBar'),
+        userbar: () => import('@/person/UserBar'),
     },
     computed: {
         // loginName(){
@@ -95,7 +95,7 @@ export default {
     }
     .searchconatiner {
         margin-left: 20px;
-        width: 300px;
+        width: 250px;
         height: 35px;
     }
     .bar {

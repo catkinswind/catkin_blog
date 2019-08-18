@@ -1,3 +1,8 @@
+<!--
+ * @Author: zhangpeng
+ * @Date: 2019-06-04 21:09:36
+ * @LastEditTime: 2019-08-17 17:42:28
+ -->
 <template>
     <div>
         <logo height="60px"></logo>
@@ -82,17 +87,10 @@ export default {
             }
             if (this.userPwd !== '' && this.repuserPwd !== '' && this.userPwd === this.repuserPwd) {
                 this.$refs.btn.removeAttribute('readonly');
-                let form = new FormData();
-                form.append('userName', this.userName);
-                form.append('userPwd', this.userPwd);
-                const config = {
-                    headers: { 'Content-Type': 'multipart/from-data' }
-                }
-                this.axios.post('/api/forget.php', form, config).then(resp => {
-                    console.log(resp.data)
-                    let result = resp.data;
-                    if (result.isname) {
-                        if (result.changpwd) {
+                const data = { 'userName': this.userName, 'userPwd': this.userPwd };
+                this.$axios.post('/api/forget.php', data).then(data => {
+                    if (data.isname) {
+                        if (data.changpwd) {
                             Toast({
                                 message: "修改成功",
                                 duration: 1000,
@@ -118,7 +116,7 @@ export default {
 
     },
     components: {
-        logo: () => import('../decorate/Logo.vue'),
+        logo: () => import('@/decorate/Logo'),
     },
     created () {
         this.userName = this.$route.params.name;

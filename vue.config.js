@@ -1,3 +1,12 @@
+/*
+ * @Description: file information
+ * @version: 
+ * @Company: my Company
+ * @Author: zhangpeng
+ * @Date: 2019-06-04 21:09:35
+ * @LastEditors: 
+ * @LastEditTime: 2019-08-17 11:38:16
+ */
 const webpack = require('webpack');
 module.exports = {
     devServer: { //api跨域操作

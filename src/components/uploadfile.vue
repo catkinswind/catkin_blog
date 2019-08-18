@@ -1,3 +1,8 @@
+<!--
+ * @Author: zhangpeng
+ * @Date: 2019-06-04 21:09:36
+ * @LastEditTime: 2019-08-17 18:01:28
+ -->
 <template>
     <div class="uploadfileContainer">
         <div class="dropbox">
@@ -154,16 +159,12 @@ export default {
                 this.errmsg = '未选择文件';
             } else {
                 if (this.loginName !== '') {
-                    let form = new FormData();
-                    form.append('name', this.loginName);
+                    const data = {};
+                    data.name = this.loginName;
                     upLoadArr.forEach((item, index) => {
-                        form.append(`file${index}`, item);
+                        data[`file${index}`] = item;
                     })
-                    let config = {
-                        headers: { 'Content-Type': 'multipart/from-data' }
-                    }
-                    this.axios.post('/api/SaveFile.php', form, config).then(resp => {
-                        let data = resp.data;
+                    this.$axios.file('/api/SaveFile.php', data).then(data => {
                         if (data) {//文件上传成功
                             this.existflag = true;
                             this.errmsg = '保存成功';

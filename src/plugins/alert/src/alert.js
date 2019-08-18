@@ -1,3 +1,8 @@
+/*
+ * @Author: zhangpeng
+ * @Date: 2019-06-04 21:09:37
+ * @LastEditTime: 2019-06-04 21:09:37
+ */
 import Vue from 'vue';
 import alert from './alert.vue'
 const Alertconstructor = Vue.extend(alert);
@@ -18,7 +23,6 @@ const Alert = (options = {}, callback) => {
         instance[key] = options[key];
     }
     document.body.appendChild(instance.$el);
-    console.log(1111111111111111111111111111111);
 
     let Timer = setInterval(() => {
         if (!instance.showAlert || instance._data.res !== null || instance._data.rej !== null) { // 组件关闭或者只要选中其中一个按钮就为true
